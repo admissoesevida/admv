@@ -4,15 +4,15 @@
   "description": "",
   "main": "dist/index.js",
   "engines": {
-    "node": "~6.9.1",
-    "npm": ">=3.10.0"
+    "node": "~8.11.3",
+    "npm": ">=6.1.0"
   },
   "scripts": {
     "prestart": "npm run -s build",
     "start": "node dist/index.js",
     "dev": "nodemon src/index.js --exec \"node -r dotenv/config -r babel-register\"",
-    "clean": "rimraf dist",
-    "build": "npm run clean && mkdir -p dist && babel src -s -D -d dist",
+    "clean": "rm -rf dist",
+    "build": "npm run clean && babel src -s -D -d dist",
     "test": "jest --watch",
     "lint": "esw -w src test",
     "deploy": "gcloud app deploy app.yaml --version=`echo $(date +%Y%m%dt%H%M%S)-$(git rev-parse HEAD | cut -c1-7)`"
@@ -29,8 +29,7 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "morgan": "^1.9.0",
-    "pug": "^2.0.0-beta11",
-    "rimraf": "^2.6.2"
+    "pug": "^2.0.0-beta11"
   },
   "devDependencies": {
     "babel-eslint": "^8.0.3",
