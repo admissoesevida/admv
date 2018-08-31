@@ -1,22 +1,54 @@
 import express from 'express';
+import expressLayouts from 'express-ejs-layouts';
 import path from 'path';
 import logger from 'morgan';
 import bodyParser from 'body-parser';
+import sassMiddleware from 'node-sass-middleware';
+import engine from 'ejs-locals';
+
 import routes from './routes';
 
 const app = express();
-app.disable('x-powered-by');
+const PROD = (app.get('env') === 'prod');
 
-// View engine setup
+const publicPath = path.join(__dirname, '../public');
+const srcPath = path.join(__dirname, '../views/sass');
+const destPath = path.join(__dirname, '../public/css');
+const sourcemapsPath = path.join(__dirname, '../public/sourcemaps');
+
+// app.disable('x-powered-by');
+
 app.set('views', path.join(__dirname, '../views'));
-app.set('view engine', 'pug');
+
+app.engine('ejs', engine);
+app.set('view engine', 'ejs');
+
+app.use(expressLayouts);
+app.set('layout extractScripts', true);
+app.set('layout extractStyles', true);
+app.set('layout extractMetas', true);
+
+app.set('layout', 'default_layout');
 
 app.use(logger('dev', {
   skip: () => app.get('env') === 'test'
 }));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, '../public')));
+
+app.use(sassMiddleware({
+  src: srcPath,
+  dest: destPath,
+  sourceMap: sourcemapsPath,
+  prefix: '/css',
+  debug: !PROD,
+  outputStyle: 'nested',
+  sourceComments: 'normal',
+  force: !PROD
+}));
+
+app.use(express.static(publicPath));
 
 // Routes
 app.use('/', routes);
@@ -32,7 +64,7 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   res
     .status(err.status || 500)
-    .render('error', {
+    .render('pages/error', {
       message: err.message
     });
 });
