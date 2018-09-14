@@ -9,7 +9,7 @@ import engine from 'ejs-locals';
 import routes from './routes';
 
 const app = express();
-const PROD = (app.get('env') === 'prod');
+const PROD = (process.env.MODE === 'PROD');
 
 const publicPath = path.join(__dirname, '../public');
 const srcPath = path.join(__dirname, '../views/sass');
