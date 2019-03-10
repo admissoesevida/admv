@@ -1,0 +1,14 @@
+{
+  "name": "admv-api",
+  "version": "1.0.0",
+  "description": "ADMV API",
+  "main": "index.js",
+  "scripts": {
+    "dev": "",
+    "test": ""
+  },
+  "author": "ADMV",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "admv-app",
+  "version": "1.0.0",
+  "description": "ADMV",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "author": "ADMV",
+  "dependencies": {
+    "next": "^8.0.3",
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
+  }
+}

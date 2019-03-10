@@ -2,9 +2,14 @@
   "name": "admv",
   "version": "1.0.0",
   "description": "ADMV",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "concurrently 'npm run dev --prefix app' 'npm run dev --prefix api'",
+    "build": "concurrently 'npm run build --prefix app' 'npm run build --prefix api'",
+    "start": "concurrently 'npm run start --prefix app' 'npm run start --prefix api'",
+    "test": "npm run test:api && npm run test:app",
+    "test:api": "npm run test --prefix api",
+    "test:app": "npm run test --prefix app",
+    "postinstall": "npm i --prefix app && npm i --prefix api"
   },
   "repository": {
     "type": "git",
@@ -21,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/admissoesevida/admv/issues"
   },
-  "homepage": "https://github.com/admissoesevida/admv#readme"
+  "homepage": "https://github.com/admissoesevida/admv#readme",
+  "devDependencies": {
+    "concurrently": "^4.1.0"
+  }
 }
