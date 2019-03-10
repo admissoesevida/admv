@@ -12,6 +12,7 @@ services:
   api:
     image: node:8.15.1-alpine
     container_name: "admv-api"
+    restart: "always"
     ports:
       - "3000:3000"
     links:
@@ -23,7 +24,7 @@ services:
     container_name: "admv-database"
     restart: "always"
     ports:
-      - "3306:3306"
+      - "33060:3306"
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
     volumes:
@@ -31,6 +32,7 @@ services:
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: "admv-phpmyadmin"
+    restart: "always"
     links:
       - database
     environment:
