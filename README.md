@@ -1,4 +1,5 @@
-# ADMV Front-page
+# ADMV
+[![Build Status](https://travis-ci.com/admissoesevida/admv.svg?branch=master)](https://travis-ci.com/admissoesevida/admv)
 
 ### Guia de contribuição
 
