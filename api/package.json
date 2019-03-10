@@ -4,10 +4,12 @@
   "description": "ADMV API",
   "main": "index.js",
   "scripts": {
-    "test": "",
+    "test": "npm run lint",
+    "lint": "eslint src/**",
     "dev": "nodemon --exec babel-node src/index.js",
     "serve": "node dist/index.js",
-    "build": "babel src --out-dir dist"
+    "build": "babel src --out-dir dist",
+    "sequelize-skeleton": "./node_modules/sequelize-cli/lib/sequelize init:models; ./node_modules/sequelize-cli/lib/sequelize init:config"
   },
   "author": "ADMV",
   "dependencies": {
@@ -23,6 +25,7 @@
     "@babel/core": "^7.3.4",
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.3.4",
+    "eslint": "^5.15.1",
     "faker": "^4.1.0",
     "lodash.random": "^3.2.0",
     "lodash.times": "^4.3.2",
