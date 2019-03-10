@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "",
-    "test": ""
+    "test": "",
+    "build": "echo 'No build script yet'"
   },
   "author": "ADMV",
   "dependencies": {

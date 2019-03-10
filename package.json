@@ -4,8 +4,10 @@
   "description": "ADMV",
   "scripts": {
     "dev": "concurrently 'npm run dev --prefix app' 'npm run dev --prefix api'",
-    "build": "concurrently 'npm run build --prefix app' 'npm run build --prefix api'",
     "start": "concurrently 'npm run start --prefix app' 'npm run start --prefix api'",
+    "build": "npm run build:api && npm run build:app",
+    "build:api": "npm run build --prefix api",
+    "build:app": "npm run build --prefix app",
     "test": "npm run test:api && npm run test:app",
     "test:api": "npm run test --prefix api",
     "test:app": "npm run test --prefix app",
