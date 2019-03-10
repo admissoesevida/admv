@@ -40,7 +40,8 @@ node_modules/
 jspm_packages/
 
 # Dist directories
-.next
+.next/
+dist/
 
 # Typescript v1 declaration files
 typings/

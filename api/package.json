@@ -4,12 +4,29 @@
   "description": "ADMV API",
   "main": "index.js",
   "scripts": {
-    "dev": "",
     "test": "",
-    "build": "echo 'No build script yet'"
+    "dev": "nodemon --exec babel-node src/index.js",
+    "serve": "node dist/index.js",
+    "build": "babel src --out-dir dist"
   },
   "author": "ADMV",
   "dependencies": {
-    "express": "^4.16.4"
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "moment": "^2.24.0",
+    "mysql2": "^1.6.5",
+    "sequelize": "^4.43.0",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.3.4",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.3.4",
+    "faker": "^4.1.0",
+    "lodash.random": "^3.2.0",
+    "lodash.times": "^4.3.2",
+    "nodemon": "^1.18.10",
+    "sequelize-cli": "^5.4.0"
   }
 }
