@@ -2,13 +2,13 @@
   "name": "admv-api",
   "version": "1.0.0",
   "description": "ADMV API",
-  "main": "index.js",
+  "main": "./src/server.js",
   "scripts": {
-    "test": "npm run lint",
+    "test": "npm run lint && mocha --require @babel/register --require babel-polyfill --exit",
     "lint": "eslint src/**",
-    "dev": "nodemon --exec babel-node src/index.js",
-    "serve": "node dist/index.js",
-    "build": "babel src --out-dir dist",
+    "dev": "nodemon --exec babel-node src/server.js",
+    "serve": "node dist/server.js",
+    "build": "babel src --out-dir dist --source-maps",
     "sequelize-skeleton": "./node_modules/sequelize-cli/lib/sequelize init:models; ./node_modules/sequelize-cli/lib/sequelize init:config"
   },
   "author": "ADMV",
@@ -25,10 +25,14 @@
     "@babel/core": "^7.3.4",
     "@babel/node": "^7.2.2",
     "@babel/preset-env": "^7.3.4",
+    "babel-polyfill": "^6.26.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
     "eslint": "^5.15.1",
     "faker": "^4.1.0",
     "lodash.random": "^3.2.0",
     "lodash.times": "^4.3.2",
+    "mocha": "^6.0.2",
     "nodemon": "^1.18.10",
     "sequelize-cli": "^5.4.0"
   }
