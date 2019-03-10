@@ -1,11 +1,15 @@
 language: node_js
-node_js:
-- "8"
+
+services:
+  - docker
+
+before_install:
+  - ./runinfra.sh
 
 cache:
   directories:
-  - "node_modules"
+    - "node_modules"
 
 script:
-  - npm run build
   - npm run test
+  - npm run dev
