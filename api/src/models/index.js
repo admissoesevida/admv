@@ -6,7 +6,15 @@ const Sequelize = require("sequelize");
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/../../config/config.json")[env];
+const config_pass_path = __dirname + "/../../config/pwd.json";
 const db = {};
+let env_pass = '';
+
+if (fs.existsSync(config_pass_path)) {
+  env_pass = require(config_pass_path)[env];
+}
+
+const db_pass = process.env.DB_PWD || env_pass;
 
 let sequelize;
 if (config.use_env_variable) {
@@ -15,7 +23,7 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(
     config.database,
     config.username,
-    config.password,
+    db_pass,
     config
   );
 }
