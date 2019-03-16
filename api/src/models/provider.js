@@ -14,6 +14,16 @@ module.exports = (sequelize, DataTypes) => {
       cpf_cnpj: {
         type: DataTypes.STRING,
         allowNull: false
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        defaultValue: ''
+      },
+      telephony: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        defaultValue: ''
       }
     },
     {
@@ -24,6 +34,10 @@ module.exports = (sequelize, DataTypes) => {
   Provider.associate = models => {
     Provider.hasMany(models.expense);
   };
+
+  //Caso faça alguma alteração na estrutura da tabela, descomente esta linha para sincronizar com o banco de dados
+  //Provider.sync({alter: true}); //Se não quiser remover todos os dados
+  //Provider.sync({force: true}); //Se quiser deletar a tabela e cria-la novamente
 
   return Provider;
 };

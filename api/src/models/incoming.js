@@ -26,5 +26,9 @@ module.exports = (sequelize, DataTypes) => {
     Incoming.belongsTo(models.member);
   };
 
+  //Caso faça alguma alteração na estrutura da tabela, descomente esta linha para sincronizar com o banco de dados
+  //Incoming.sync({alter: true}); //Se não quiser remover todos os dados
+  //Incoming.sync({force: true}); //Se quiser deletar a tabela e cria-la novamente
+
   return Incoming;
 };

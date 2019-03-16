@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import db from "./models";
 import handleMembers from "./controllers/member";
+import handleProviders from "./controllers/provider";
 
 const PORT = 5000;
 const env = process.env.NODE_ENV || "development";
@@ -10,6 +11,7 @@ const app = express();
 app.use(bodyParser.json());
 
 handleMembers(app, db);
+handleProviders(app, db);
 
 app.get("/", (req, res) => {
   return res
