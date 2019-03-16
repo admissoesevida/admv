@@ -19,10 +19,7 @@ export default (app, db) => {
   app.put("/member/:id", (req, res) =>
     db.member
       .update(
-        {
-          name: req.body.name,
-          cpf: req.body.cpf
-        },
+        req.body,
         {
           where: {
             id: req.params.id

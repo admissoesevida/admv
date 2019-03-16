@@ -22,12 +22,7 @@ export default (app, db) => {
     app.put("/provider/:id", (req, res) =>
       db.provider
         .update(
-          {
-            name: req.body.name,
-            cpf_cnpj: req.body.cpf_cnpj,
-            email: req.body.email,
-            telephony: req.body.telephony
-          },
+          req.body,
           {
             where: {
               id: req.params.id
