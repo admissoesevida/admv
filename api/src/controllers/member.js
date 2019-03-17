@@ -4,7 +4,7 @@ export default (app, db) => {
   );
 
   app.get("/member/:id", (req, res) =>
-    db.member.findById(req.params.id).then(result => res.json(result))
+    db.member.findByPk(req.params.id).then(result => res.json(result)) //findById is deprecated
   );
 
   app.post("/member", (req, res) =>

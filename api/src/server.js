@@ -19,7 +19,9 @@ app.get("/", (req, res) => {
     .send({ environment: env, description: "ADMV Rest API" });
 });
 
-app.listen(PORT);
-console.log("Listening port ", PORT); // eslint-disable-line no-console
+if(!module.parent){
+  app.listen(PORT);
+  console.log("Listening port ", PORT); // eslint-disable-line no-console
+}
 
 export default app;

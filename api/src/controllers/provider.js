@@ -4,11 +4,10 @@ export default (app, db) => {
     );
   
     app.get("/provider/:id", (req, res) =>
-      db.provider.findById(req.params.id).then(result => res.json(result))
+      db.provider.findByPk(req.params.id).then(result => res.json(result)) //findById is deprecated
     );
   
     app.post("/provider", (req, res) => {
-        console.log(req.body)
         db.provider
         .create({
           name: req.body.name,
