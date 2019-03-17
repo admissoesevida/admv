@@ -8,10 +8,10 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true
       },
       name: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(500),
         allowNull: false
       },
-      cpf: DataTypes.STRING
+      cpf: DataTypes.STRING(20)
     },
     {
       freezeTableName: true
@@ -22,9 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     Member.hasMany(models.incoming);
   };
 
-  //Caso faça alguma alteração na estrutura da tabela, descomente esta linha para sincronizar com o banco de dados
-  //Member.sync({alter: true}); //Se não quiser remover todos os dados
-  //Member.sync({force: true}); //Se quiser deletar a tabela e cria-la novamente
+  //Caso faça alguma alteração na estrutura da tabela, descomente uma das linhas de sincronização no index.php desta pasta
 
   return Member;
 };

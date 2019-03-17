@@ -32,12 +32,15 @@ DROP TABLE IF EXISTS `expense`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `expense` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `reg_date` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `value` decimal(10,0) NOT NULL,
-  `note` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `reg_date` datetime NOT NULL,
+  `value` decimal(16,2) NOT NULL,
+  `note` varchar(5000) COLLATE utf8mb4_bin DEFAULT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
-  PRIMARY KEY (`id`)
+  `providerId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `providerId` (`providerId`),
+  CONSTRAINT `expense_ibfk_1` FOREIGN KEY (`providerId`) REFERENCES `provider` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -59,12 +62,15 @@ DROP TABLE IF EXISTS `incoming`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `incoming` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `reg_date` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `value` decimal(10,0) NOT NULL,
-  `note` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `reg_date` datetime NOT NULL,
+  `value` decimal(16,2) NOT NULL,
+  `note` varchar(5000) COLLATE utf8mb4_bin DEFAULT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
-  PRIMARY KEY (`id`)
+  `memberId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `memberId` (`memberId`),
+  CONSTRAINT `incoming_ibfk_1` FOREIGN KEY (`memberId`) REFERENCES `member` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -86,8 +92,8 @@ DROP TABLE IF EXISTS `member`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `member` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `cpf` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL,
+  `name` varchar(500) COLLATE utf8mb4_bin NOT NULL,
+  `cpf` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL,
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`)
@@ -112,14 +118,14 @@ DROP TABLE IF EXISTS `provider`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `provider` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8mb4_bin NOT NULL,
-  `cpf_cnpj` varchar(255) COLLATE utf8mb4_bin NOT NULL,
+  `name` varchar(500) COLLATE utf8mb4_bin NOT NULL,
+  `cpf_cnpj` varchar(20) COLLATE utf8mb4_bin NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_bin DEFAULT '',
+  `phone` varchar(20) COLLATE utf8mb4_bin DEFAULT '',
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
-  `phone` varchar(255) COLLATE utf8mb4_bin DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,7 +134,6 @@ CREATE TABLE `provider` (
 
 LOCK TABLES `provider` WRITE;
 /*!40000 ALTER TABLE `provider` DISABLE KEYS */;
-INSERT INTO `provider` VALUES (3,'Caso de teste','46542212723','teste@teste.com','2019-03-16 23:20:29','2019-03-16 23:20:29',''),(4,'Caso de teste','46542212723','teste@teste.com','2019-03-16 23:21:14','2019-03-16 23:21:14',''),(15,'Caso de teste','46542212723','teste@teste.com','2019-03-17 00:00:04','2019-03-17 00:00:04','');
 /*!40000 ALTER TABLE `provider` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -141,4 +146,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-17 13:35:23
+-- Dump completed on 2019-03-17 18:35:29

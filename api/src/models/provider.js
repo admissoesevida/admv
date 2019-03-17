@@ -8,11 +8,11 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true
       },
       name: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(500),
         allowNull: false
       },
       cpf_cnpj: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(20),
         allowNull: false
       },
       email: {
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: ''
       },
       phone: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(20),
         allowNull: true,
         defaultValue: ''
       }
@@ -35,9 +35,7 @@ module.exports = (sequelize, DataTypes) => {
     Provider.hasMany(models.expense);
   };
 
-  //Caso faça alguma alteração na estrutura da tabela, descomente esta linha para sincronizar com o banco de dados
-  Provider.sync({alter: true}); //Se não quiser remover todos os dados
-  //Provider.sync({force: true}); //Se quiser deletar a tabela e cria-la novamente
+  //Caso faça alguma alteração na estrutura da tabela, descomente uma das linhas de sincronização no index.php desta pasta
 
   return Provider;
 };

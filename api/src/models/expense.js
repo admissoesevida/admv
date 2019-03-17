@@ -8,14 +8,14 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true
       },
       reg_date: {
-        type: DataTypes.STRING,
+        type: DataTypes.DATE,
         allowNull: false
       },
       value: {
-        type: DataTypes.DECIMAL,
+        type: DataTypes.DECIMAL(16,2),
         allowNull: false
       },
-      note: DataTypes.STRING
+      note: DataTypes.STRING(5000)
     },
     {
       freezeTableName: true
@@ -26,9 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     Expense.belongsTo(models.provider);
   };
 
-  //Caso faça alguma alteração na estrutura da tabela, descomente esta linha para sincronizar com o banco de dados
-  //Expense.sync({alter: true}); //Se não quiser remover todos os dados
-  //Expense.sync({force: true}); //Se quiser deletar a tabela e cria-la novamente
+  //Caso faça alguma alteração na estrutura da tabela, descomente uma das linhas de sincronização no index.php desta pasta
   
   return Expense;
 };
