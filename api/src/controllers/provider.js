@@ -13,7 +13,7 @@ export default (app, db) => {
           name: req.body.name,
           cpf_cnpj: req.body.cpf_cnpj,
           email: req.body.email,
-          telephony: req.body.telephony
+          phone: req.body.phone
         })
         .then(result => res.json(result))
     });

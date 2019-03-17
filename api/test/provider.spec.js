@@ -13,7 +13,7 @@ const ProviderTest = {
 	name: "Caso de teste",
     cpf_cnpj: "46542212723",
     email: "teste@teste.com",
-    telephony: "14992345621"
+    phone: "14992345621"
 };
 
 let newProvider = {};

@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         defaultValue: ''
       },
-      telephony: {
+      phone: {
         type: DataTypes.STRING,
         allowNull: true,
         defaultValue: ''
@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   //Caso faça alguma alteração na estrutura da tabela, descomente esta linha para sincronizar com o banco de dados
-  //Provider.sync({alter: true}); //Se não quiser remover todos os dados
+  Provider.sync({alter: true}); //Se não quiser remover todos os dados
   //Provider.sync({force: true}); //Se quiser deletar a tabela e cria-la novamente
 
   return Provider;
