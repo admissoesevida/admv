@@ -8,12 +8,22 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true
       },
       name: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(500),
         allowNull: false
       },
       cpf_cnpj: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(20),
         allowNull: false
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        defaultValue: ''
+      },
+      phone: {
+        type: DataTypes.STRING(20),
+        allowNull: true,
+        defaultValue: ''
       }
     },
     {
@@ -24,6 +34,8 @@ module.exports = (sequelize, DataTypes) => {
   Provider.associate = models => {
     Provider.hasMany(models.expense);
   };
+
+  //Caso faça alguma alteração na estrutura da tabela, descomente uma das linhas de sincronização no index.js desta pasta
 
   return Provider;
 };

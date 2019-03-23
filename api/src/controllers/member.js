@@ -4,7 +4,7 @@ export default (app, db) => {
   );
 
   app.get("/member/:id", (req, res) =>
-    db.member.findById(req.params.id).then(result => res.json(result))
+    db.member.findByPk(req.params.id).then(result => res.json(result)) //findById is deprecated
   );
 
   app.post("/member", (req, res) =>
@@ -19,10 +19,7 @@ export default (app, db) => {
   app.put("/member/:id", (req, res) =>
     db.member
       .update(
-        {
-          name: req.body.name,
-          cpf: req.body.cpf
-        },
+        req.body,
         {
           where: {
             id: req.params.id

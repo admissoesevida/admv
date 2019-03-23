@@ -8,10 +8,10 @@ module.exports = (sequelize, DataTypes) => {
         autoIncrement: true
       },
       name: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(500),
         allowNull: false
       },
-      cpf: DataTypes.STRING
+      cpf: DataTypes.STRING(20)
     },
     {
       freezeTableName: true
@@ -21,6 +21,8 @@ module.exports = (sequelize, DataTypes) => {
   Member.associate = models => {
     Member.hasMany(models.incoming);
   };
+
+  //Caso faça alguma alteração na estrutura da tabela, descomente uma das linhas de sincronização no index.js desta pasta
 
   return Member;
 };
