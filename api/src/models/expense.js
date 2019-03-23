@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     Expense.belongsTo(models.provider);
   };
 
-  //Caso faça alguma alteração na estrutura da tabela, descomente uma das linhas de sincronização no index.php desta pasta
-  
+  //Caso faça alguma alteração na estrutura da tabela, descomente uma das linhas de sincronização no index.js desta pasta
+
   return Expense;
 };

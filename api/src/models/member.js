@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     Member.hasMany(models.incoming);
   };
 
-  //Caso faça alguma alteração na estrutura da tabela, descomente uma das linhas de sincronização no index.php desta pasta
+  //Caso faça alguma alteração na estrutura da tabela, descomente uma das linhas de sincronização no index.js desta pasta
 
   return Member;
 };
