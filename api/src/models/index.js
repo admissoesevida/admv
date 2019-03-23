@@ -46,7 +46,7 @@ Object.keys(db).forEach(modelName => {
 });
 
 //Descomente uma das duas linhas para sincronizar as alterações com o banco de dados.
-//sequelize.sync({alter: true}); //Se quiser somente alterar as estruturas das tabelas sem remover os dados
+sequelize.sync({alter: true}); //Se quiser somente alterar as estruturas das tabelas sem remover os dados
 //sequelize.sync({force: true}); //Se quiser deletar as tabelas e cria-las novamente
 
 db.sequelize = sequelize;
