@@ -8,6 +8,12 @@
     "build": "npm run build:api && npm run build:app",
     "build:api": "npm run build --prefix api",
     "build:app": "npm run build --prefix app",
+    "lint": "npm run lint:api && npm run lint:app",
+    "lint:api": "npm run lint --prefix api",
+    "lint:app": "npm run lint --prefix app",
+    "format": "npm run format:api && npm run format:app",
+    "format:api": "npm run format --prefix api",
+    "format:app": "npm run format --prefix app",
     "test": "npm run test:api && npm run test:app",
     "test:api": "npm run test --prefix api",
     "test:app": "npm run test --prefix app",
@@ -30,6 +36,9 @@
   },
   "homepage": "https://github.com/admissoesevida/admv#readme",
   "devDependencies": {
-    "concurrently": "^4.1.0"
+    "concurrently": "^4.1.0",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-sort-imports-es6-autofix": "^0.4.0",
+    "prettier": "^1.16.4"
   }
 }

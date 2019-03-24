@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Expense = sequelize.define(
-    "expense",
+    'expense',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false
       },
       value: {
-        type: DataTypes.DECIMAL(16,2),
+        type: DataTypes.DECIMAL(16, 2),
         allowNull: false
       },
       note: DataTypes.STRING(5000)
@@ -26,7 +26,8 @@ module.exports = (sequelize, DataTypes) => {
     Expense.belongsTo(models.provider);
   };
 
-  //Caso faça alguma alteração na estrutura da tabela, descomente uma das linhas de sincronização no index.js desta pasta
+  // Caso faça alguma alteração na estrutura da tabela,
+  // descomente uma das linhas de sincronização no index.js desta pasta
 
   return Expense;
 };

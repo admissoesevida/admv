@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Provider = sequelize.define(
-    "provider",
+    'provider',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -35,7 +35,8 @@ module.exports = (sequelize, DataTypes) => {
     Provider.hasMany(models.expense);
   };
 
-  //Caso faça alguma alteração na estrutura da tabela, descomente uma das linhas de sincronização no index.js desta pasta
+  // Caso faça alguma alteração na estrutura da tabela,
+  // descomente uma das linhas de sincronização no index.js desta pasta
 
   return Provider;
 };
