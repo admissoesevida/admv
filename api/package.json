@@ -5,7 +5,10 @@
   "main": "./src/server.js",
   "scripts": {
     "test": "npm run lint && mocha --require @babel/register --require babel-polyfill --exit",
-    "lint": "eslint src/**",
+    "lint": "eslint src/**  test/**",
+    "format": "npm run format:prettier && npm run format:eslint",
+    "format:eslint": "eslint src/** test/** --fix",
+    "format:prettier": "prettier --write src/**/* test/**/*",
     "dev": "nodemon --exec babel-node src/server.js",
     "serve": "node dist/server.js",
     "build": "babel src --out-dir dist --source-maps",

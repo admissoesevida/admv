@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "echo 'no linter configured'",
+    "format": "echo 'no code formatter configured'"
   },
   "author": "ADMV",
   "dependencies": {
