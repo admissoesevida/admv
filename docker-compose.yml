@@ -1,44 +1,40 @@
-version: "3"
+version: '3'
 
 services:
   app:
     image: node:8.15.1-alpine
-    container_name: "admv-app"
-    restart: "always"
+    container_name: 'admv-app'
     ports:
-      - "8000:80"
+      - '8000:80'
     volumes:
       - ./app:/app
   api:
     image: node:8.15.1-alpine
-    container_name: "admv-api"
-    restart: "always"
+    container_name: 'admv-api'
     ports:
-      - "5000:5000"
+      - '5000:5000'
     links:
       - database
     volumes:
       - ./api:/api
   database:
     build: ./database
-    container_name: "admv-database"
-    restart: "always"
+    container_name: 'admv-database'
     ports:
-      - "33060:3306"
+      - '33060:3306'
     environment:
       MYSQL_ROOT_PASSWORD: rootpassword
     volumes:
       - ./database/dump:/dump
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: "admv-phpmyadmin"
-    restart: "always"
+    container_name: 'admv-phpmyadmin'
     links:
       - database
     environment:
       PMA_HOST: database
       PMA_PORT: 3306
     ports:
-      - "8080:80"
+      - '8080:80'
     volumes:
       - /sessions
