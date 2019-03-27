@@ -2,15 +2,17 @@ version: '3'
 
 services:
   app:
-    image: node:8.15.1-alpine
+    build: ./app
     container_name: 'admv-app'
+    command: npm run dev
     ports:
       - '8000:80'
     volumes:
       - ./app:/app
   api:
-    image: node:8.15.1-alpine
+    build: ./api
     container_name: 'admv-api'
+    command: npm run dev
     ports:
       - '5000:5000'
     links:

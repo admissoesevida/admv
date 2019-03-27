@@ -2,8 +2,8 @@
   "development": {
     "username": "root",
     "database": "admv",
-    "host": "127.0.0.1",
-    "port": "33060",
+    "host": "admv-database",
+    "port": "3306",
     "dialect": "mysql",
     "logging": false,
     "operatorsAliases": false
