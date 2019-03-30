@@ -4,6 +4,6 @@ WORKDIR /api
 
 RUN npm install
 
-ENV DB_PWD=rootpassword
+ENV DB_PWD rootpassword
 
-CMD [ "npm run dev" ]
+CMD [ "npm", "run", "dev" ]
