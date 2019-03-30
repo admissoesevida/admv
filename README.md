@@ -7,19 +7,44 @@
 
 2. Clone o repositório no seu computador
 
-3. Instale os pacotes necessários
+3. Execute o script `run-infra.sh`
 
 ```bash
-npm install
+./run-infra.sh
 ```
 
-4. Execute o projeto em modo de desenvolvimento para que ele fique em watch e atualize o programa em execução sempre que você editar o código
+4. Pronto o sistema estará rodando. API em `localhost:5000` e APP React em `localhost:3000`
+
+---
+
+### Outros comandos úteis:
+
+- Para limpar o ambiente, execute o comando
 
 ```bash
-npm run dev
+./clean-infra.sh
+```
+- Para atualizar o dump do database
+```bash
+./dump-database.sh
+```
+> Isso irá atualizar o arquivo em /database/dump/admv.sql, depois disso você precisará fazer o commit desse arquivo
+
+- Para ver logs dos containeres (`api` ou `app`)
+```bash
+./logs.sh api    # mostra logs da api
+./logs.sh app    # mostra logs do React
+./logs.sh        # padrão API
+```
+- Para acessar o terminal do container e rodar comandos diretamente nele
+```bash
+./ssh.sh api     # acessa o container do api
+./ssh.sh app     # acessa o container do React
+./ssh.sh         # padrão api
 ```
 
 ---
+### Para saber as tarefas disponíveis e como escrever os commits
 
 Acesse a [board da organização](https://github.com/orgs/admissoesevida/projects/1) e veja quais tarefas estão disponíveis na coluna _To Do_.
 

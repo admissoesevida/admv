@@ -1,27 +1,22 @@
 'use strict';
 
+require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../../config/config.json')[env];
-const config_pass_path = __dirname + '/../../config/pwd.json';
 const db = {};
-let env_pass = '';
 
-if (fs.existsSync(config_pass_path)) {
-  env_pass = require(config_pass_path)[env];
-}
-
-const db_pass = process.env.DB_PWD || env_pass;
-
-let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(config.database, config.username, db_pass, config);
-}
+const sequelize = new Sequelize({
+  database: process.env.DB_DATABASE,
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  port: process.env.DB_PORT,
+  host: process.env.DB_HOST,
+  dialect: 'mysql',
+  logging: false,
+  operatorsAliases: false
+});
 
 fs.readdirSync(__dirname)
   .filter(file => {

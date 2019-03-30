@@ -1,22 +1,18 @@
 language: node_js
-
 node_js:
-  - "8"
-  - "10"
-
+- '8'
+- '10'
 services:
-  - docker
-
+- docker
 before_install:
-  - ./run-infra.sh
-
+- openssl aes-256-cbc -K $encrypted_e2418f4bde07_key -iv $encrypted_e2418f4bde07_iv
+  -in .env.enc -out api/.env -d
+- "./run-infra.sh"
 cache:
   directories:
-    - "node_modules"
-
+  - node_modules
 script:
-  - npm run test
-  - npm run build
-
+- npm run test
+- npm run build
 after_script:
-  - ./clean-infra.sh
+- "./clean-infra.sh"

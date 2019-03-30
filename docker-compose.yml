@@ -1,22 +1,6 @@
 version: '3'
 
 services:
-  app:
-    image: node:8.15.1-alpine
-    container_name: 'admv-app'
-    ports:
-      - '8000:80'
-    volumes:
-      - ./app:/app
-  api:
-    image: node:8.15.1-alpine
-    container_name: 'admv-api'
-    ports:
-      - '5000:5000'
-    links:
-      - database
-    volumes:
-      - ./api:/api
   database:
     build: ./database
     container_name: 'admv-database'
