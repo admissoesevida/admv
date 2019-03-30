@@ -4,7 +4,8 @@
   "description": "ADMV API",
   "main": "./src/server.js",
   "scripts": {
-    "test": "npm run lint && mocha --require @babel/register --require babel-polyfill --exit",
+    "test": "npm run lint && nyc mocha --require @babel/register --require babel-polyfill --report lcovonly -- -R spec --exit",
+    "test:ci": "npm run test && codecov",
     "lint": "eslint src/**  test/**",
     "format": "npm run format:prettier && npm run format:eslint",
     "format:eslint": "eslint src/** test/** --fix",
@@ -40,6 +41,7 @@
     "lodash.times": "^4.3.2",
     "mocha": "^6.0.2",
     "nodemon": "^1.18.10",
+    "nyc": "^13.3.0",
     "prettier": "^1.16.4",
     "sequelize-cli": "^5.4.0"
   }

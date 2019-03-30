@@ -6,11 +6,13 @@ services:
 - docker
 before_install:
 - "./run-infra.sh"
+install:
+  - npm install -g codecov
 cache:
   directories:
   - node_modules
 script:
-- npm run test
-- npm run build
+  - npm run test:ci
+  - npm run build
 after_script:
 - "./clean-infra.sh"
