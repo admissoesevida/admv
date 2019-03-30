@@ -8,6 +8,7 @@ before_install:
 - "./run-infra.sh"
 install:
   - npm install -g codecov
+  - npm install
 cache:
   directories:
   - node_modules
