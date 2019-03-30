@@ -63,15 +63,15 @@ DROP TABLE IF EXISTS `incoming`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `incoming` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `reg_date` date NOT NULL,
-  `member` int(11) NOT NULL DEFAULT '1',
+  `reg_date` datetime NOT NULL,
   `value` decimal(16,2) NOT NULL,
-  `note` varchar(5000) COLLATE utf8mb4_bin NOT NULL,
-  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `note` varchar(5000) COLLATE utf8mb4_bin DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
+  `memberId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_incoming_member` (`member`),
-  CONSTRAINT `fk_incoming_member` FOREIGN KEY (`member`) REFERENCES `member` (`id`)
+  KEY `incoming_memberId_foreign_idx` (`memberId`),
+  CONSTRAINT `incoming_memberId_foreign_idx` FOREIGN KEY (`memberId`) REFERENCES `member` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -81,7 +81,7 @@ CREATE TABLE `incoming` (
 
 LOCK TABLES `incoming` WRITE;
 /*!40000 ALTER TABLE `incoming` DISABLE KEYS */;
-INSERT INTO `incoming` VALUES (1,'2019-03-01',1,50.00,'Test','2019-03-10 16:52:01','2019-03-10 16:52:01');
+INSERT INTO `incoming` VALUES (1,'2019-03-01 00:00:00',50.00,'Test','2019-03-10 16:52:01','2019-03-10 16:52:01',NULL);
 /*!40000 ALTER TABLE `incoming` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -95,9 +95,9 @@ DROP TABLE IF EXISTS `member`;
 CREATE TABLE `member` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(500) COLLATE utf8mb4_bin NOT NULL,
-  `cpf` varchar(20) COLLATE utf8mb4_bin NOT NULL,
-  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updatedAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `cpf` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL,
+  `createdAt` datetime NOT NULL,
+  `updatedAt` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -128,7 +128,7 @@ CREATE TABLE `provider` (
   `email` varchar(255) COLLATE utf8mb4_bin DEFAULT '',
   `phone` varchar(20) COLLATE utf8mb4_bin DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -150,4 +150,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-23 22:13:37
+-- Dump completed on 2019-03-30  1:21:49
