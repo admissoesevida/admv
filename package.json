@@ -18,7 +18,8 @@
     "test:ci": "npm run test:ci --prefix api && npm run test:app",
     "test:api": "npm run test --prefix api",
     "test:app": "npm run test --prefix app",
-    "postinstall": "npm i --prefix app && npm i --prefix api"
+    "postinstall": "npm i --prefix app && npm i --prefix api",
+    "install:ci": "npm ci && npm ci --prefix api && npm ci --prefix app"
   },
   "repository": {
     "type": "git",
