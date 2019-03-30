@@ -14,7 +14,11 @@
 ./run-infra.sh
 ```
 
-4. Pronto o sistema estará rodando. API em `localhost:5000` e APP React em `localhost:3000`
+4. Execute `npm install` na pasta raiz
+
+5. Depois execute `npm run dev`
+
+6. Pronto o sistema estará rodando. API em `localhost:5000` e APP React em `localhost:3000`
 
 ---
 
