@@ -1,5 +1,6 @@
 # ADMV
 [![Build Status](https://travis-ci.com/admissoesevida/admv.svg?branch=master)](https://travis-ci.com/admissoesevida/admv)
+[![codecov](https://codecov.io/gh/admissoesevida/admv/branch/master/graph/badge.svg)](https://codecov.io/gh/admissoesevida/admv)
 
 ### Guia de contribuição
 
