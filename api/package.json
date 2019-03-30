@@ -4,8 +4,9 @@
   "description": "ADMV API",
   "main": "./src/server.js",
   "scripts": {
-    "test": "npm run lint && nyc mocha --require @babel/register --require babel-polyfill --report lcovonly -- -R spec --exit",
-    "test:ci": "npm run test && codecov",
+    "test": "npm run lint && nyc mocha --require @babel/register --require babel-polyfill -R spec --exit",
+    "test:ci": "npm run test && npm run coverage:reports",
+    "coverage:reports": "nyc report --report-dir ../coverage -r html -r json -r text -r lcov",
     "lint": "eslint src/**  test/**",
     "format": "npm run format:prettier && npm run format:eslint",
     "format:eslint": "eslint src/** test/** --fix",
