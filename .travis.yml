@@ -15,7 +15,6 @@ services:
 before_install:
 - "./run-infra.sh"
 install:
-  - npm install -g codecov
   - npm run install:ci
 cache:
   directories:
@@ -23,7 +22,7 @@ cache:
 script:
   - npm run test:ci
   - npm run build
-after_script:
-- "./clean-infra.sh"
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+after_script:
+- "./clean-infra.sh"
