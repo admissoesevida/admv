@@ -15,8 +15,10 @@
     "format:api": "npm run format --prefix api",
     "format:app": "npm run format --prefix app",
     "test": "npm run test:api && npm run test:app",
+    "test:ci": "npm run test:ci --prefix api && npm run test:app",
     "test:api": "npm run test --prefix api",
     "test:app": "npm run test --prefix app",
+    "install:ci": "npm ci --ignore-scripts && npm ci --prefix api && npm ci --prefix app",
     "postinstall": "npm i --prefix app && npm i --prefix api"
   },
   "repository": {
