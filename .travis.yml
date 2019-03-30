@@ -2,6 +2,13 @@ language: node_js
 node_js:
 - '8'
 - '10'
+env:
+  - DB_PASSWORD=rootpassword
+  - DB_USERNAME=root
+  - DB_DATABASE=admv
+  - DB_HOST=localhost
+  - DB_PORT=33060
+  - CODECOV_TOKEN=d7ee1e14-fa20-4166-b3ec-c8ba27fd3ab1
 services:
 - docker
 before_install:
