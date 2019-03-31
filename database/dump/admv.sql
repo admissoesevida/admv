@@ -55,6 +55,33 @@ INSERT INTO `expense` VALUES (2,'2019-03-01 00:00:00',10.00,'Teste','2019-03-10 
 UNLOCK TABLES;
 
 --
+-- Table structure for table `incomeType`
+--
+
+DROP TABLE IF EXISTS `incomeType`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `incomeType` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(500) COLLATE utf8mb4_bin NOT NULL,
+  `note` varchar(5000) COLLATE utf8mb4_bin DEFAULT NULL,
+  `createdAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updatedAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `incomeType`
+--
+
+LOCK TABLES `incomeType` WRITE;
+/*!40000 ALTER TABLE `incomeType` DISABLE KEYS */;
+INSERT INTO `incomeType` VALUES (1,'Dízimo',NULL,'2019-03-31 02:35:14','2019-03-31 02:35:14'),(2,'Oferta',NULL,'2019-03-31 02:35:14','2019-03-31 02:35:14');
+/*!40000 ALTER TABLE `incomeType` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `incoming`
 --
 
@@ -69,8 +96,11 @@ CREATE TABLE `incoming` (
   `createdAt` datetime NOT NULL,
   `updatedAt` datetime NOT NULL,
   `memberId` int(11) DEFAULT NULL,
+  `incomeTypeId` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `incoming_memberId_foreign_idx` (`memberId`),
+  KEY `incoming_incomeTypeId_foreign_idx` (`incomeTypeId`),
+  CONSTRAINT `incoming_incomeTypeId_foreign_idx` FOREIGN KEY (`incomeTypeId`) REFERENCES `incomeType` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `incoming_memberId_foreign_idx` FOREIGN KEY (`memberId`) REFERENCES `member` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -81,7 +111,7 @@ CREATE TABLE `incoming` (
 
 LOCK TABLES `incoming` WRITE;
 /*!40000 ALTER TABLE `incoming` DISABLE KEYS */;
-INSERT INTO `incoming` VALUES (1,'2019-03-01 00:00:00',50.00,'Test','2019-03-10 16:52:01','2019-03-10 16:52:01',NULL);
+INSERT INTO `incoming` VALUES (1,'2019-03-01 00:00:00',50.00,'Test','2019-03-10 16:52:01','2019-03-10 16:52:01',NULL,NULL);
 /*!40000 ALTER TABLE `incoming` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -128,7 +158,7 @@ CREATE TABLE `provider` (
   `email` varchar(255) COLLATE utf8mb4_bin DEFAULT '',
   `phone` varchar(20) COLLATE utf8mb4_bin DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -150,4 +180,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-30  1:21:49
+-- Dump completed on 2019-03-31  2:35:30

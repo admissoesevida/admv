@@ -1,18 +1,14 @@
 module.exports = (sequelize, DataTypes) => {
-  const Incoming = sequelize.define(
-    'incoming',
+  const IncomeType = sequelize.define(
+    'incomeType',
     {
       id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
       },
-      reg_date: {
-        type: DataTypes.DATE,
-        allowNull: false
-      },
-      value: {
-        type: DataTypes.DECIMAL(16, 2),
+      name: {
+        type: DataTypes.STRING(500),
         allowNull: false
       },
       note: DataTypes.STRING(5000)
@@ -22,16 +18,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Incoming.associate = models => {
-    Incoming.belongsTo(models.member);
-  };
-
-  Incoming.associate = models => {
-    Incoming.belongsTo(models.incomeType);
+  IncomeType.associate = models => {
+    IncomeType.hasMany(models.incoming);
   };
 
   // Caso faça alguma alteração na estrutura da tabela,
   // descomente uma das linhas de sincronização no index.js desta pasta
 
-  return Incoming;
+  return IncomeType;
 };
