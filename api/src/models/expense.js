@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true
       },
-      reg_date: {
+      date: {
         type: DataTypes.DATE,
         allowNull: false
       },
@@ -24,6 +24,10 @@ module.exports = (sequelize, DataTypes) => {
 
   Expense.associate = models => {
     Expense.belongsTo(models.provider);
+  };
+
+  Expense.associate = models => {
+    Expense.belongsTo(models.expenseType);
   };
 
   // Caso faça alguma alteração na estrutura da tabela,

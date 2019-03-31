@@ -8,10 +8,10 @@ import chaiHttp from 'chai-http';
 
 chai.use(chaiHttp);
 
-const helper = new DatabaseHelper('members');
+const helper = new DatabaseHelper('expense-types');
 
-describe('controllers/members', () => {
-  describe('POST /members', async () => {
+describe('controllers/expense-types', () => {
+  describe('POST /expense-types', async () => {
     it('Deve retornar o novo item registrado', async () => {
       const newItem = {
         name: 'Item Test'
@@ -29,7 +29,7 @@ describe('controllers/members', () => {
     });
   });
 
-  describe('PUT /members/:id', async () => {
+  describe('PUT /expense-types/:id', async () => {
     before(async () => {
       await helper.maybeCreate({
         name: 'Novo Item'
@@ -54,7 +54,7 @@ describe('controllers/members', () => {
     });
   });
 
-  describe('GET /members', async () => {
+  describe('GET /expense-types', async () => {
     before(async () => {
       await helper.maybeCreate({
         name: 'Novo Item 1'
@@ -80,7 +80,7 @@ describe('controllers/members', () => {
     });
   });
 
-  describe('GET /members/:id', async () => {
+  describe('GET /expense-types/:id', async () => {
     it('Deve retornar um item específico', async () => {
       const { body: newItem } = await helper.maybeCreate({
         name: 'Novo Item'
@@ -99,7 +99,7 @@ describe('controllers/members', () => {
     });
   });
 
-  describe('DELETE /members/:id', () => {
+  describe('DELETE /expense-types/:id', () => {
     it('Deve deletar um item específico', async () => {
       const { body: newItem } = await helper.maybeCreate({
         name: 'Novo Item'

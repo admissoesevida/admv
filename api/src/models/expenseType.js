@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const IncomeType = sequelize.define(
-    'incomeType',
+    'expenseType',
     {
       id: {
         type: DataTypes.INTEGER,
@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   IncomeType.associate = models => {
-    IncomeType.hasMany(models.income);
+    IncomeType.hasMany(models.expense);
   };
 
   // Caso faça alguma alteração na estrutura da tabela,

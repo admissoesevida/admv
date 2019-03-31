@@ -1,6 +1,7 @@
 import bodyParser from 'body-parser';
 import db from './models';
 import express from 'express';
+import handleExpenseTypes from './controllers/expense-types';
 import handleIncomeTypes from './controllers/income-types';
 import handleMembers from './controllers/member';
 import handleProviders from './controllers/provider';
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 handleMembers(app, db);
 handleProviders(app, db);
 handleIncomeTypes(app, db);
+handleExpenseTypes(app, db);
 
 app.get('/', (req, res) => {
   return res
