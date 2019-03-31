@@ -1,7 +1,7 @@
-const ROUTE_NAME = 'expense-types';
+const ROUTE_NAME = 'incomes';
 
 export default (app, db) => {
-  const model = db.expenseType;
+  const model = db.income;
 
   app.get(`/${ROUTE_NAME}`, (req, res) =>
     model.findAll().then(result => res.json(result))
@@ -14,7 +14,10 @@ export default (app, db) => {
   app.post(`/${ROUTE_NAME}`, (req, res) =>
     model
       .create({
-        name: req.body.name,
+        date: req.body.date,
+        value: req.body.value,
+        memberId: req.body.memberId,
+        incomeTypeId: req.body.incomeTypeId,
         note: req.body.note || ''
       })
       .then(result => res.json(result))

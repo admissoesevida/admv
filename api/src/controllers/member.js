@@ -7,6 +7,19 @@ export default (app, db) => {
     db.member.findByPk(req.params.id).then(result => res.json(result))
   );
 
+  app.get('/members/:id/incomes', (req, res) =>
+    db.member
+      .findByPk(req.params.id, {
+        include: [
+          {
+            model: db.income,
+            as: 'incomes'
+          }
+        ]
+      })
+      .then(result => res.json(result))
+  );
+
   app.post('/members', (req, res) =>
     db.member
       .create({

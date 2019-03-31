@@ -3,6 +3,7 @@ import db from './models';
 import express from 'express';
 import handleExpenseTypes from './controllers/expense-types';
 import handleIncomeTypes from './controllers/income-types';
+import handleIncomes from './controllers/income';
 import handleMembers from './controllers/member';
 import handleProviders from './controllers/provider';
 
@@ -16,6 +17,7 @@ handleMembers(app, db);
 handleProviders(app, db);
 handleIncomeTypes(app, db);
 handleExpenseTypes(app, db);
+handleIncomes(app, db);
 
 app.get('/', (req, res) => {
   return res
