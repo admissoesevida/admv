@@ -3,12 +3,21 @@
 import { after, before, describe, it } from 'mocha';
 import { expect } from 'chai';
 import DatabaseHelper from './helpers/database-helper';
+import ExpenseUtilsHelper from './helpers/expense-utils-helper';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 
 chai.use(chaiHttp);
 
-const helper = new DatabaseHelper('expense-types');
+const expenseTypeHelper = new DatabaseHelper('expense-types');
+const expenseHelper = new DatabaseHelper('expenses');
+const providerHelper = new DatabaseHelper('providers');
+
+const { createExpenseItem } = new ExpenseUtilsHelper(
+  expenseHelper,
+  providerHelper,
+  expenseTypeHelper
+);
 
 describe('controllers/expense-types', () => {
   describe('POST /expense-types', async () => {
@@ -16,7 +25,7 @@ describe('controllers/expense-types', () => {
       const newItem = {
         name: 'Item Test'
       };
-      const res = await helper.maybeCreate(newItem);
+      const res = await expenseTypeHelper.maybeCreate(newItem);
 
       expect(res).to.have.status(200);
       expect(res.body).to.be.an('object');
@@ -25,13 +34,13 @@ describe('controllers/expense-types', () => {
     });
 
     after(async () => {
-      await helper.maybeDeleteAll();
+      await expenseTypeHelper.maybeDeleteAll();
     });
   });
 
   describe('PUT /expense-types/:id', async () => {
     before(async () => {
-      await helper.maybeCreate({
+      await expenseTypeHelper.maybeCreate({
         name: 'Novo Item'
       });
     });
@@ -39,9 +48,9 @@ describe('controllers/expense-types', () => {
       const updateItem = {
         name: 'Novo nome'
       };
-      await helper.maybeUpdate(updateItem);
+      await expenseTypeHelper.maybeUpdate(updateItem);
 
-      const res = await helper.maybeGetItem();
+      const res = await expenseTypeHelper.maybeGetItem();
 
       expect(res).to.have.status(200);
       expect(res.body).to.be.an('object');
@@ -50,24 +59,24 @@ describe('controllers/expense-types', () => {
     });
 
     after(async () => {
-      await helper.maybeDeleteAll();
+      await expenseTypeHelper.maybeDeleteAll();
     });
   });
 
   describe('GET /expense-types', async () => {
     before(async () => {
-      await helper.maybeCreate({
+      await expenseTypeHelper.maybeCreate({
         name: 'Novo Item 1'
       });
-      await helper.maybeCreate({
+      await expenseTypeHelper.maybeCreate({
         name: 'Novo Item 2'
       });
-      await helper.maybeCreate({
+      await expenseTypeHelper.maybeCreate({
         name: 'Novo Item 3'
       });
     });
     it('Deve retornar vários itens', async () => {
-      const res = await helper.maybeGetAll();
+      const res = await expenseTypeHelper.maybeGetAll();
 
       expect(res).to.have.status(200);
       expect(res.body)
@@ -76,17 +85,17 @@ describe('controllers/expense-types', () => {
     });
 
     after(async () => {
-      await helper.maybeDeleteAll();
+      await expenseTypeHelper.maybeDeleteAll();
     });
   });
 
   describe('GET /expense-types/:id', async () => {
     it('Deve retornar um item específico', async () => {
-      const { body: newItem } = await helper.maybeCreate({
+      const { body: newItem } = await expenseTypeHelper.maybeCreate({
         name: 'Novo Item'
       });
 
-      const res = await helper.maybeGetItem(newItem.id);
+      const res = await expenseTypeHelper.maybeGetItem(newItem.id);
 
       expect(res).to.have.status(200);
       expect(res.body)
@@ -95,19 +104,50 @@ describe('controllers/expense-types', () => {
     });
 
     after(async () => {
-      await helper.maybeDeleteAll();
+      await expenseTypeHelper.maybeDeleteAll();
+    });
+  });
+
+  describe('GET /expense-types/:id/expenses', async () => {
+    it('Deve retornar as expenses relacionadas ao tipo', async () => {
+      const newType = {
+        name: 'Test Type'
+      };
+      const { body: type } = await expenseTypeHelper.maybeCreate(newType);
+
+      const { body: newExpense } = await createExpenseItem({ typeId: type.id });
+
+      const res = await expenseTypeHelper.maybeGet('expenses');
+
+      expect(res).to.have.status(200);
+      expect(res.body).to.be.an('object');
+      expect(res.body).to.have.property('name', newType.name);
+      expect(res.body)
+        .to.have.property('expenses')
+        .that.is.an('array');
+
+      expect(res.body.expenses[0]).to.have.deep.include({
+        id: newExpense.id,
+        expenseTypeId: type.id
+      });
+    });
+
+    after(async () => {
+      await expenseHelper.maybeDeleteAll();
+      await expenseTypeHelper.maybeDeleteAll();
+      await providerHelper.maybeDeleteAll();
     });
   });
 
   describe('DELETE /expense-types/:id', () => {
     it('Deve deletar um item específico', async () => {
-      const { body: newItem } = await helper.maybeCreate({
+      const { body: newItem } = await expenseTypeHelper.maybeCreate({
         name: 'Novo Item'
       });
 
-      await helper.maybeDeleteItem(newItem.id);
+      await expenseTypeHelper.maybeDeleteItem(newItem.id);
 
-      const res = await helper.maybeGetItem(newItem.id);
+      const res = await expenseTypeHelper.maybeGetItem(newItem.id);
 
       expect(res).to.have.status(200);
       expect(res.body).to.be.null;

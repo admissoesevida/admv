@@ -1,7 +1,7 @@
-const ROUTE_NAME = 'members';
+const ROUTE_NAME = 'expenses';
 
 export default (app, db) => {
-  const model = db.member;
+  const model = db.expense;
 
   app.get(`/${ROUTE_NAME}`, (req, res) =>
     model.findAll().then(result => res.json(result))
@@ -11,24 +11,14 @@ export default (app, db) => {
     model.findByPk(req.params.id).then(result => res.json(result))
   );
 
-  app.get(`/${ROUTE_NAME}/:id/incomes`, (req, res) =>
-    model
-      .findByPk(req.params.id, {
-        include: [
-          {
-            model: db.income,
-            as: 'incomes'
-          }
-        ]
-      })
-      .then(result => res.json(result))
-  );
-
   app.post(`/${ROUTE_NAME}`, (req, res) =>
     model
       .create({
-        name: req.body.name,
-        cpf: req.body.cpf
+        date: req.body.date,
+        value: req.body.value,
+        providerId: req.body.providerId,
+        expenseTypeId: req.body.expenseTypeId,
+        note: req.body.note || ''
       })
       .then(result => res.json(result))
   );

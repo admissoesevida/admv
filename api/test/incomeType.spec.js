@@ -3,12 +3,21 @@
 import { after, before, describe, it } from 'mocha';
 import { expect } from 'chai';
 import DatabaseHelper from './helpers/database-helper';
+import IncomeUtilsHelper from './helpers/income-utils-helper';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 
 chai.use(chaiHttp);
 
-const helper = new DatabaseHelper('income-types');
+const incomeTypeHelper = new DatabaseHelper('income-types');
+const incomeHelper = new DatabaseHelper('incomes');
+const memberHelper = new DatabaseHelper('members');
+
+const { createIncomeItem } = new IncomeUtilsHelper(
+  incomeHelper,
+  memberHelper,
+  incomeTypeHelper
+);
 
 describe('controllers/income-types', () => {
   describe('POST /income-types', async () => {
@@ -16,7 +25,7 @@ describe('controllers/income-types', () => {
       const newItem = {
         name: 'Income Test'
       };
-      const res = await helper.maybeCreate(newItem);
+      const res = await incomeTypeHelper.maybeCreate(newItem);
 
       expect(res).to.have.status(200);
       expect(res.body).to.be.an('object');
@@ -25,13 +34,13 @@ describe('controllers/income-types', () => {
     });
 
     after(async () => {
-      await helper.maybeDeleteAll();
+      await incomeTypeHelper.maybeDeleteAll();
     });
   });
 
   describe('PUT /income-types/:id', async () => {
     before(async () => {
-      await helper.maybeCreate({
+      await incomeTypeHelper.maybeCreate({
         name: 'Novo Item'
       });
     });
@@ -39,9 +48,9 @@ describe('controllers/income-types', () => {
       const updateItem = {
         name: 'Novo nome'
       };
-      await helper.maybeUpdate(updateItem);
+      await incomeTypeHelper.maybeUpdate(updateItem);
 
-      const res = await helper.maybeGetItem();
+      const res = await incomeTypeHelper.maybeGetItem();
 
       expect(res).to.have.status(200);
       expect(res.body).to.be.an('object');
@@ -50,24 +59,24 @@ describe('controllers/income-types', () => {
     });
 
     after(async () => {
-      await helper.maybeDeleteAll();
+      await incomeTypeHelper.maybeDeleteAll();
     });
   });
 
   describe('GET /income-types', async () => {
     before(async () => {
-      await helper.maybeCreate({
+      await incomeTypeHelper.maybeCreate({
         name: 'Novo Item 1'
       });
-      await helper.maybeCreate({
+      await incomeTypeHelper.maybeCreate({
         name: 'Novo Item 2'
       });
-      await helper.maybeCreate({
+      await incomeTypeHelper.maybeCreate({
         name: 'Novo Item 3'
       });
     });
     it('Deve retornar vários itens', async () => {
-      const res = await helper.maybeGetAll();
+      const res = await incomeTypeHelper.maybeGetAll();
 
       expect(res).to.have.status(200);
       expect(res.body)
@@ -76,17 +85,17 @@ describe('controllers/income-types', () => {
     });
 
     after(async () => {
-      await helper.maybeDeleteAll();
+      await incomeTypeHelper.maybeDeleteAll();
     });
   });
 
   describe('GET /income-types/:id', async () => {
     it('Deve retornar um item específico', async () => {
-      const { body: newItem } = await helper.maybeCreate({
+      const { body: newItem } = await incomeTypeHelper.maybeCreate({
         name: 'Novo Item'
       });
 
-      const res = await helper.maybeGetItem(newItem.id);
+      const res = await incomeTypeHelper.maybeGetItem(newItem.id);
 
       expect(res).to.have.status(200);
       expect(res.body)
@@ -95,19 +104,50 @@ describe('controllers/income-types', () => {
     });
 
     after(async () => {
-      await helper.maybeDeleteAll();
+      await incomeTypeHelper.maybeDeleteAll();
+    });
+  });
+
+  describe('GET /income-types/:id/incomes', async () => {
+    it('Deve retornar as incomes relacionadas ao tipo', async () => {
+      const newType = {
+        name: 'Test Type'
+      };
+      const { body: type } = await incomeTypeHelper.maybeCreate(newType);
+
+      const { body: newIncome } = await createIncomeItem({ typeId: type.id });
+
+      const res = await incomeTypeHelper.maybeGet('incomes');
+
+      expect(res).to.have.status(200);
+      expect(res.body).to.be.an('object');
+      expect(res.body).to.have.property('name', newType.name);
+      expect(res.body)
+        .to.have.property('incomes')
+        .that.is.an('array');
+
+      expect(res.body.incomes[0]).to.have.deep.include({
+        id: newIncome.id,
+        incomeTypeId: type.id
+      });
+    });
+
+    after(async () => {
+      await incomeHelper.maybeDeleteAll();
+      await incomeTypeHelper.maybeDeleteAll();
+      await memberHelper.maybeDeleteAll();
     });
   });
 
   describe('DELETE /income-types/:id', () => {
     it('Deve deletar um item específico', async () => {
-      const { body: newItem } = await helper.maybeCreate({
+      const { body: newItem } = await incomeTypeHelper.maybeCreate({
         name: 'Novo Item'
       });
 
-      await helper.maybeDeleteItem(newItem.id);
+      await incomeTypeHelper.maybeDeleteItem(newItem.id);
 
-      const res = await helper.maybeGetItem(newItem.id);
+      const res = await incomeTypeHelper.maybeGetItem(newItem.id);
 
       expect(res).to.have.status(200);
       expect(res.body).to.be.null;
