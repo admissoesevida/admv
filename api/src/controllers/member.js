@@ -9,7 +9,7 @@ export default (app, db) => {
 
   app.get('/members/:id/incomes', (req, res) =>
     db.member
-      .findById(req.params.id, {
+      .findByPk(req.params.id, {
         include: [
           {
             model: db.income,
