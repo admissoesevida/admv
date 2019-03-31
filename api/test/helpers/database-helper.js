@@ -41,6 +41,16 @@ export default class DatabaseHelper {
     return res;
   }
 
+  async maybeGet(path, id) {
+    const getId = id || this.getLastCreatedId();
+
+    const res = await request(api)
+      .get(`/${this.route}/${getId}/${path}`)
+      .send();
+
+    return res;
+  }
+
   async maybeGetAll() {
     const res = await request(api)
       .get(`/${this.route}`)
