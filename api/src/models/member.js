@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Member.associate = models => {
-    Member.hasMany(models.incoming);
+    Member.hasMany(models.income);
   };
 
   // Caso faça alguma alteração na estrutura da tabela,

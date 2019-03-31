@@ -1,4 +1,4 @@
-const ROUTE_NAME = 'income-types';
+const ROUTE_NAME = 'expense-types';
 
 export default (app, db) => {
   app.get(`/${ROUTE_NAME}`, (req, res) =>
