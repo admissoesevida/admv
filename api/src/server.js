@@ -2,6 +2,7 @@ import bodyParser from 'body-parser';
 import db from './models';
 import express from 'express';
 import handleExpenseTypes from './controllers/expense-types';
+import handleExpenses from './controllers/expense';
 import handleIncomeTypes from './controllers/income-types';
 import handleIncomes from './controllers/income';
 import handleMembers from './controllers/member';
@@ -18,6 +19,7 @@ handleProviders(app, db);
 handleIncomeTypes(app, db);
 handleExpenseTypes(app, db);
 handleIncomes(app, db);
+handleExpenses(app, db);
 
 app.get('/', (req, res) => {
   return res

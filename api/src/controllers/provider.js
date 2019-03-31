@@ -1,14 +1,31 @@
+const ROUTE_NAME = 'providers';
+
 export default (app, db) => {
-  app.get('/providers', (req, res) =>
-    db.provider.findAll().then(result => res.json(result))
+  const model = db.provider;
+
+  app.get(`/${ROUTE_NAME}`, (req, res) =>
+    model.findAll().then(result => res.json(result))
   );
 
-  app.get('/provider/:id', (req, res) =>
-    db.provider.findByPk(req.params.id).then(result => res.json(result))
+  app.get(`/${ROUTE_NAME}/:id`, (req, res) =>
+    model.findByPk(req.params.id).then(result => res.json(result))
   );
 
-  app.post('/provider', (req, res) =>
-    db.provider
+  app.get(`/${ROUTE_NAME}/:id/expenses`, (req, res) =>
+    model
+      .findByPk(req.params.id, {
+        include: [
+          {
+            model: db.expense,
+            as: 'expenses'
+          }
+        ]
+      })
+      .then(result => res.json(result))
+  );
+
+  app.post(`/${ROUTE_NAME}`, (req, res) =>
+    model
       .create({
         name: req.body.name,
         cpf_cnpj: req.body.cpf_cnpj,
@@ -18,8 +35,8 @@ export default (app, db) => {
       .then(result => res.json(result))
   );
 
-  app.put('/provider/:id', (req, res) =>
-    db.provider
+  app.put(`/${ROUTE_NAME}/:id`, (req, res) =>
+    model
       .update(req.body, {
         where: {
           id: req.params.id
@@ -28,8 +45,8 @@ export default (app, db) => {
       .then(result => res.json(result))
   );
 
-  app.delete('/provider/:id', (req, res) =>
-    db.provider
+  app.delete(`/${ROUTE_NAME}/:id`, (req, res) =>
+    model
       .destroy({
         where: {
           id: req.params.id

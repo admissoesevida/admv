@@ -9,6 +9,7 @@ export default class IncomeUtilsHelper {
 
   async createIncomeItem({
     id = null,
+    typeId = null,
     name = 'Tester',
     type = 'Oferta',
     date = '2019-03-10T19:52:01.000Z',
@@ -19,14 +20,20 @@ export default class IncomeUtilsHelper {
       const { body: member } = await this.memberHelper.maybeCreate({ name });
       memberId = member.id;
     }
-    const { body: incomeType } = await this.incomeTypeHelper.maybeCreate({
-      name: type
-    });
+
+    let incomeTypeId = typeId;
+    if (!incomeTypeId) {
+      const { body: incomeType } = await this.incomeTypeHelper.maybeCreate({
+        name: type
+      });
+      incomeTypeId = incomeType.id;
+    }
+
     const newItem = {
       date,
       value,
       memberId,
-      incomeTypeId: incomeType.id
+      incomeTypeId
     };
 
     return await this.incomeHelper.maybeCreate(newItem);

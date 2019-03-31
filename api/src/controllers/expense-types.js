@@ -11,6 +11,19 @@ export default (app, db) => {
     model.findByPk(req.params.id).then(result => res.json(result))
   );
 
+  app.get(`/${ROUTE_NAME}/:id/expenses`, (req, res) =>
+    model
+      .findByPk(req.params.id, {
+        include: [
+          {
+            model: db.expense,
+            as: 'expenses'
+          }
+        ]
+      })
+      .then(result => res.json(result))
+  );
+
   app.post(`/${ROUTE_NAME}`, (req, res) =>
     model
       .create({
