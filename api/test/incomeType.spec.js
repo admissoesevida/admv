@@ -2,13 +2,13 @@
 
 import { after, before, describe, it } from 'mocha';
 import { expect } from 'chai';
-import IncomeTypeHelper from './helpers/income-type-helper';
+import DatabaseHelper from './helpers/database-helper';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 
 chai.use(chaiHttp);
 
-const helper = new IncomeTypeHelper();
+const helper = new DatabaseHelper('income-types');
 
 describe('controllers/income-types', () => {
   describe('POST /income-types', async () => {
