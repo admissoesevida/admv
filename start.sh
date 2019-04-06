@@ -1,0 +1,9 @@
+#!/bin/bash
+
+SERVICE_ID=${1-api}
+SERVICE_CONTAINER_PORT=${2-5000}
+SERVICE_HOST_PORT=${3-5000}
+
+docker build . admv-$SERVICE_ID
+
+docker run -td -p$SERVICE_CONTAINER_PORT:$SERVICE_HOST_PORT --name admv-$SERVICE_ID admv-$SERVICE_ID
