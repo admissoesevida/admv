@@ -1,5 +1,4 @@
 import bodyParser from 'body-parser';
-import db from './models';
 import express from 'express';
 import handleExpenseTypes from './controllers/expense-types';
 import handleExpenses from './controllers/expense';
@@ -12,14 +11,15 @@ const PORT = 5000;
 const env = process.env.NODE_ENV || 'development';
 const app = express();
 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-handleMembers(app, db);
-handleProviders(app, db);
-handleIncomeTypes(app, db);
-handleExpenseTypes(app, db);
-handleIncomes(app, db);
-handleExpenses(app, db);
+app.use('/expense-types', handleExpenseTypes);
+app.use('/expenses', handleExpenses);
+app.use('/income-types', handleIncomeTypes);
+app.use('/incomes', handleIncomes);
+app.use('/members', handleMembers);
+app.use('/providers', handleProviders);
 
 app.get('/', (req, res) => {
   return res
