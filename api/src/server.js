@@ -1,27 +1,50 @@
+import AuthController from './controllers/AuthController';
+import AuthMiddleware from './middlewares/AuthMiddleware';
+import ExpenseTypesController from './controllers/ExpenseTypesController';
+import ExpensesController from './controllers/ExpensesController';
+import IncomeController from './controllers/IncomeController';
+import IncomeTypesController from './controllers/IncomeTypesController';
+import MemberController from './controllers/MemberController';
+import ProviderController from './controllers/ProviderController';
+
 import bodyParser from 'body-parser';
-import db from './models';
 import express from 'express';
-import handleExpenseTypes from './controllers/expense-types';
-import handleExpenses from './controllers/expense';
-import handleIncomeTypes from './controllers/income-types';
-import handleIncomes from './controllers/income';
-import handleMembers from './controllers/member';
-import handleProviders from './controllers/provider';
+import helmet from 'helmet';
+import session from 'cookie-session';
 
 const PORT = 5000;
 const env = process.env.NODE_ENV || 'development';
 const app = express();
+app.set('trust proxy', 1);
 
+const expiryDate = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+app.use(
+  session({
+    name: 'admv-session',
+    keys: ['admvK1', 'admvK2'],
+    cookie: {
+      secure: true,
+      httpOnly: true,
+      domain: 'admv.com',
+      path: '*',
+      expires: expiryDate
+    }
+  })
+);
+
+app.use(helmet());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-handleMembers(app, db);
-handleProviders(app, db);
-handleIncomeTypes(app, db);
-handleExpenseTypes(app, db);
-handleIncomes(app, db);
-handleExpenses(app, db);
+app.use('/auth', AuthController);
+app.use('/expense-types', AuthMiddleware, ExpenseTypesController);
+app.use('/expenses', AuthMiddleware, ExpensesController);
+app.use('/income-types', AuthMiddleware, IncomeTypesController);
+app.use('/incomes', AuthMiddleware, IncomeController);
+app.use('/members', AuthMiddleware, MemberController);
+app.use('/providers', AuthMiddleware, ProviderController);
 
-app.get('/', (req, res) => {
+app.get('/', AuthMiddleware, (req, res) => {
   return res
     .status(200)
     .send({ environment: env, description: 'ADMV Rest API' });
