@@ -68,3 +68,4 @@ typings/
 # Custom
 .idea
 .vscode
+*.code-workspace

@@ -1,0 +1,38 @@
+@import '../styles/shared/colors';
+
+$menu-width: 180px;
+
+.layout-sidebar {
+  display: flex;
+
+  .sidebar-content {
+    background-color: $primary;
+    display: flex;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: $menu-width;
+
+    nav {
+      width: 100%;
+    }
+
+    a {
+      display: flex;
+      color: $white;
+      padding: 12px 20px 12px 6px;
+      text-align: left;
+      width: 100%;
+
+      &:hover {
+        background: $white;
+      }
+    }
+  }
+
+  .main-content {
+    margin-left: $menu-width;
+    width: 100%;
+    padding: 36px 24px;
+  }
+}

@@ -1,0 +1,14 @@
+@import '../styles/shared/colors';
+
+.nav-component {
+  .nav-link {
+    text-decoration: none;
+    color: $primary;
+    transition: all 300ms ease-in-out;
+    outline: none;
+
+    &:hover {
+      color: $accent;
+    }
+  }
+}

@@ -11,6 +11,7 @@ env:
     - DB_HOST=localhost
     - DB_PORT=33060
     - CODECOV_TOKEN=d7ee1e14-fa20-4166-b3ec-c8ba27fd3ab1
+    - SKIP_PREFLIGHT_CHECK=true
 services:
 - docker
 before_install:
@@ -21,8 +22,8 @@ cache:
   directories:
   - node_modules
 script:
-  - npm run test:ci
   - npm run build
+  - npm run test:ci
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 after_script:
