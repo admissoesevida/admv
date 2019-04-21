@@ -1,10 +1,11 @@
 import * as React from "react";
+import TableView from "../components/TableView";
+import Title from "../components/Title";
 
 export interface Member {
   id: number;
   name: string;
   cpf: string;
-  other: string;
 }
 
 export default class Members extends React.Component {
@@ -23,27 +24,12 @@ export default class Members extends React.Component {
   public render(): React.ReactNode {
     return (
       <div className="page-members">
-        <p>Members</p>
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.list.map(
-              (member: Member): React.ReactElement => {
-                return (
-                  <tr key={member.id}>
-                    <td>{member.id}</td>
-                    <td>{member.name}</td>
-                  </tr>
-                );
-              }
-            )}
-          </tbody>
-        </table>
+        <Title text="Members" />
+        <TableView
+          list={this.state.list}
+          headers={["ID", "Name"]}
+          fields={["id", "name"]}
+        />
       </div>
     );
   }

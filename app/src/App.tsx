@@ -1,3 +1,5 @@
+// Router: https://reacttraining.com/react-router/web/guides/quick-start
+
 import * as React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Menu } from "./components/Navigation";
@@ -8,8 +10,6 @@ import Members from "./pages/Members";
 import Providers from "./pages/Providers";
 import Incomes from "./pages/Incomes";
 import Expenses from "./pages/Expenses";
-
-// Router: https://reacttraining.com/react-router/web/guides/quick-start
 
 export default class App extends React.Component {
   public static displayName: string = "App";
