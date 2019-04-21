@@ -6,7 +6,9 @@ EXPOSE 5000
 
 ADD . .
 
-COPY ./tmp/.env ./.env
+RUN rm .env
+
+COPY ./tmp/.env .env
 
 RUN npm install
 

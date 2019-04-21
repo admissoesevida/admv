@@ -36,13 +36,13 @@ app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use('/auth', AuthController);
-app.use('/expense-types', AuthMiddleware, ExpenseTypesController);
-app.use('/expenses', AuthMiddleware, ExpensesController);
-app.use('/income-types', AuthMiddleware, IncomeTypesController);
-app.use('/incomes', AuthMiddleware, IncomeController);
-app.use('/members', AuthMiddleware, MemberController);
-app.use('/providers', AuthMiddleware, ProviderController);
+app.use('/api/auth', AuthController);
+app.use('/api/expense-types', AuthMiddleware, ExpenseTypesController);
+app.use('/api/expenses', AuthMiddleware, ExpensesController);
+app.use('/api/income-types', AuthMiddleware, IncomeTypesController);
+app.use('/api/incomes', AuthMiddleware, IncomeController);
+app.use('/api/members', AuthMiddleware, MemberController);
+app.use('/api/providers', AuthMiddleware, ProviderController);
 
 app.get('/', AuthMiddleware, (req, res) => {
   return res

@@ -21,7 +21,7 @@ if [ ! -z "$CONTAINER_ID" ]; then
 fi
 
 echo "Running $SERVICE_ID on port $SERVICE_HOST_PORT"
-docker run -td -p$SERVICE_CONTAINER_PORT:$SERVICE_HOST_PORT --name admv-$SERVICE_ID admv-$SERVICE_ID > /dev/null
+docker run --add-host="localhost:172.17.0.1" -td -p$SERVICE_CONTAINER_PORT:$SERVICE_HOST_PORT --name admv-$SERVICE_ID admv-$SERVICE_ID > /dev/null
 
 echo "Cleaning up temp files..."
 rm -rf ./$SERVICE_ID/tmp

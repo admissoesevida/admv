@@ -42,6 +42,7 @@
     ]
   },
   "dependencies": {
+    "http-proxy-middleware": "^0.19.1",
     "node-sass": "^4.11.0",
     "query-string": "^6.4.2",
     "react": "^16.8.6",
