@@ -27,8 +27,8 @@ export default class Members extends React.Component {
         <Title text="Members" />
         <TableView
           list={this.state.list}
-          headers={["ID", "Name"]}
-          fields={["id", "name"]}
+          headers={["ID", "Name", "CPF"]}
+          fields={["id", "name", "cpf"]}
         />
       </div>
     );
