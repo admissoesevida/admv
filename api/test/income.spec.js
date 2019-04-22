@@ -71,6 +71,10 @@ describe('controllers/incomes', () => {
 
       expect(res).to.have.status(200);
       expect(res.body).to.be.an('array');
+      expect(res.body[0]).to.have.property('member');
+      expect(res.body[0]).to.have.property('incomeType');
+      expect(res.body[0].member).to.be.an('object');
+      expect(res.body[0].incomeType).to.be.an('object');
     });
   });
 
@@ -84,25 +88,10 @@ describe('controllers/incomes', () => {
       expect(res.body).to.be.an('object');
       expect(res.body).to.have.property('date', newIncome.date);
       expect(res.body).to.have.property('value', newIncome.value.toFixed(2));
-    });
-
-    after(async () => {
-      await incomeHelper.maybeDeleteAll();
-      await incomeTypeHelper.maybeDeleteAll();
-      await memberHelper.maybeDeleteAll();
-    });
-  });
-
-  describe('GET /incomes/:id', async () => {
-    it('Deve retornar um item específico', async () => {
-      const { body: newIncome } = await createIncomeItem({});
-
-      const res = await incomeHelper.maybeGetItem(newIncome.id);
-
-      expect(res).to.have.status(200);
-      expect(res.body).to.be.an('object');
-      expect(res.body).to.have.property('date', newIncome.date);
-      expect(res.body).to.have.property('value', newIncome.value.toFixed(2));
+      expect(res.body).to.have.property('member');
+      expect(res.body).to.have.property('incomeType');
+      expect(res.body.member).to.be.an('object');
+      expect(res.body.incomeType).to.be.an('object');
     });
 
     after(async () => {

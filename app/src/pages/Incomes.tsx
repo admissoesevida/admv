@@ -1,6 +1,7 @@
 import * as React from "react";
 import Title from "../components/Title";
 import TableView from "../components/TableView";
+import { Member } from "./Members";
 
 export interface Income {
   id: number;
@@ -9,6 +10,7 @@ export interface Income {
   note: string;
   incomeTypeId: number;
   memberId: number;
+  member: Member;
 }
 
 export default class Incomes extends React.Component {
@@ -30,8 +32,8 @@ export default class Incomes extends React.Component {
         <Title text="Incomes" />
         <TableView
           list={this.state.list}
-          headers={["ID", "Data", "ID de Tipo", "ID de Membro", "Valor"]}
-          fields={["id", "date", "incomeTypeId", "memberId", "value"]}
+          headers={["ID", "Data", "ID de Tipo", "Membro", "Valor"]}
+          fields={["id", "date", "incomeTypeId", "member.name", "value"]}
         />
       </div>
     );

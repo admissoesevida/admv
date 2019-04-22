@@ -30,8 +30,8 @@ export default class Expenses extends React.Component {
         <Title text="Expenses" />
         <TableView
           list={this.state.list}
-          headers={["ID", "Data", "ID de Tipo", "ID de Fornecedor", "Valor"]}
-          fields={["id", "date", "expenseTypeId", "providerId", "value"]}
+          headers={["ID", "Data", "ID de Tipo", "Fornecedor", "Valor"]}
+          fields={["id", "date", "expenseTypeId", "provider.name", "value"]}
         />
       </div>
     );

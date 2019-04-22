@@ -71,6 +71,8 @@ describe('controllers/expenses', () => {
 
       expect(res).to.have.status(200);
       expect(res.body).to.be.an('array');
+      expect(res.body[0]).to.have.property('provider');
+      expect(res.body[0]).to.have.property('expenseType');
     });
   });
 
@@ -84,6 +86,8 @@ describe('controllers/expenses', () => {
       expect(res.body).to.be.an('object');
       expect(res.body).to.have.property('date', newExpense.date);
       expect(res.body).to.have.property('value', newExpense.value.toFixed(2));
+      expect(res.body).to.have.property('provider');
+      expect(res.body).to.have.property('expenseType');
     });
 
     after(async () => {

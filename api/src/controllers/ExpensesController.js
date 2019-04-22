@@ -4,10 +4,40 @@ import express from 'express';
 const model = db.expense;
 const router = express.Router();
 
-router.get('/', (req, res) => model.findAll().then(result => res.json(result)));
+router.get('/', (req, res) =>
+  model
+    .findAll({
+      include: [
+        {
+          model: db.expenseType,
+          required: false
+        },
+        {
+          model: db.provider,
+          required: false
+        }
+      ]
+    })
+    .then(result => res.json(result))
+    .catch(error => res.status(500).json({ error: error.stack || error }))
+);
 
 router.get('/:id', (req, res) =>
-  model.findByPk(req.params.id).then(result => res.json(result))
+  model
+    .findByPk(req.params.id, {
+      include: [
+        {
+          model: db.expenseType,
+          required: false
+        },
+        {
+          model: db.provider,
+          required: false
+        }
+      ]
+    })
+    .then(result => res.json(result))
+    .catch(error => res.status(500).json({ error: error.stack || error }))
 );
 
 router.post('/', (req, res) =>
@@ -20,6 +50,7 @@ router.post('/', (req, res) =>
       note: req.body.note || ''
     })
     .then(result => res.json(result))
+    .catch(error => res.status(500).json({ error: error.stack || error }))
 );
 
 router.put('/:id', (req, res) =>
@@ -30,6 +61,7 @@ router.put('/:id', (req, res) =>
       }
     })
     .then(result => res.json(result))
+    .catch(error => res.status(500).json({ error: error.stack || error }))
 );
 
 router.delete('/:id', (req, res) =>
@@ -40,6 +72,7 @@ router.delete('/:id', (req, res) =>
       }
     })
     .then(result => res.json(result))
+    .catch(error => res.status(500).json({ error: error.stack || error }))
 );
 
 export default router;

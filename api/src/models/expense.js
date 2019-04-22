@@ -24,9 +24,6 @@ module.exports = (sequelize, DataTypes) => {
 
   Expense.associate = models => {
     Expense.belongsTo(models.provider);
-  };
-
-  Expense.associate = models => {
     Expense.belongsTo(models.expenseType);
   };
 
