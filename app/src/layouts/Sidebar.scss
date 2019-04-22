@@ -2,15 +2,19 @@
 
 $menu-width: 180px;
 
+body {
+  background-color: $white;
+}
+
 .layout-sidebar {
   display: flex;
 
   .sidebar-content {
     background-color: $primary;
+    bottom: 0;
     display: flex;
     position: absolute;
     top: 0;
-    bottom: 0;
     width: $menu-width;
 
     nav {
@@ -18,21 +22,22 @@ $menu-width: 180px;
     }
 
     a {
-      display: flex;
       color: $white;
+      display: flex;
       padding: 12px 20px 12px 6px;
       text-align: left;
       width: 100%;
 
       &:hover {
-        background: $white;
+        background: $secondary;
+        color: $white;
       }
     }
   }
 
   .main-content {
     margin-left: $menu-width;
-    width: 100%;
     padding: 36px 24px;
+    width: 100%;
   }
 }

@@ -44,7 +44,7 @@ describe('controllers/members', () => {
         name: 'Novo Item'
       });
     });
-    it('Deve retornar o nome do item atualizado', async () => {
+    it('Deve retornar o item atualizado', async () => {
       const updateItem = {
         name: 'Novo nome'
       };

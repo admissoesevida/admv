@@ -1,0 +1,57 @@
+@import '../styles/shared/colors';
+
+.loader-component {
+  animation: spin 500ms infinite linear;
+  display: inline-flex;
+  margin: 6px auto;
+  font-size: 10px;
+  position: relative;
+  text-indent: -9999em;
+  transform: translateZ(0);
+  border-top: 2px solid rgba(255, 255, 255, 0.2);
+  border-right: 2px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  border-left: 2px solid #ffffff;
+
+  &.dark {
+    border-top: 2px solid rgba(0, 0, 0, 0.2);
+    border-right: 2px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    border-left: 2px solid $primary;
+  }
+
+  &,
+  &:after {
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+  }
+
+  &.sm {
+    &,
+    &:after {
+      border-radius: 50%;
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  &.lg {
+    &,
+    &:after {
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+    }
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

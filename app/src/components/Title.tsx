@@ -6,5 +6,5 @@ export interface TitleProps {
 }
 
 export default function App({ text }: TitleProps): React.ReactElement {
-  return <h1>{text}</h1>;
+  return <h1 className="title-component">{text}</h1>;
 }
