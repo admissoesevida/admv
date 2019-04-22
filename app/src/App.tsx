@@ -10,6 +10,7 @@ import Members from "./pages/Members";
 import Providers from "./pages/Providers";
 import Incomes from "./pages/Incomes";
 import Expenses from "./pages/Expenses";
+import IncomeTypes from "./pages/IncomeTypes";
 
 export default class App extends React.Component {
   public static displayName: string = "App";
@@ -20,7 +21,8 @@ export default class App extends React.Component {
       { name: "Members", path: "/members" },
       { name: "Providers", path: "/providers" },
       { name: "Incomes", path: "/incomes" },
-      { name: "Expenses", path: "/expenses" }
+      { name: "Expenses", path: "/expenses" },
+      { name: "IncomeTypes", path: "/income-types" },
     ];
 
     return (
@@ -32,6 +34,7 @@ export default class App extends React.Component {
             <Route exact path="/providers" component={Providers} />
             <Route exact path="/incomes" component={Incomes} />
             <Route exact path="/expenses" component={Expenses} />
+            <Route exact path="/income-types" component={IncomeTypes} />
           </div>
         </SidebarLayout>
       </Router>
