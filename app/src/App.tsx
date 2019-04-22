@@ -19,12 +19,12 @@ export default class App extends React.Component {
   public render(): React.ReactNode {
     const menuList: Menu[] = [
       { name: "Overview", path: "/" },
-      { name: "Members", path: "/members" },
-      { name: "Providers", path: "/providers" },
-      { name: "Incomes", path: "/incomes" },
-      { name: "Expenses", path: "/expenses" },
-      { name: "IncomeTypes", path: "/income-types" },
-      { name: "ExpenseTypes", path: "/expense-types" }
+      { name: "Membros", path: "/members" },
+      { name: "Fornecedores", path: "/providers" },
+      { name: "Entradas", path: "/incomes" },
+      { name: "Saídas", path: "/expenses" },
+      { name: "Tipos de Entradas", path: "/income-types" },
+      { name: "Tipos de Saídas", path: "/expense-types" }
     ];
 
     return (

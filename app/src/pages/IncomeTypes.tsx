@@ -24,7 +24,7 @@ export default class IncomeTypes extends React.Component {
   public render(): React.ReactNode {
     return (
       <div className="page-income-types">
-        <Title text="Income Types" />
+        <Title text="Tipos de Entradas" />
         <TableView
           list={this.state.list}
           headers={["ID", "Nome", "Nota"]}

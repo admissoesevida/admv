@@ -29,7 +29,7 @@ export default class Incomes extends React.Component {
   public render(): React.ReactNode {
     return (
       <div className="page-incomes">
-        <Title text="Incomes" />
+        <Title text="Entradas" />
         <TableView
           list={this.state.list}
           headers={["ID", "Data", "ID de Tipo", "Membro", "Valor"]}

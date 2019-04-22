@@ -23,7 +23,7 @@ export default class Providers extends React.Component {
   public render(): React.ReactNode {
     return (
       <div className="page-providers">
-        <Title text="Providers" />
+        <Title text="Fornecedores" />
         <TableView
           list={this.state.list}
           headers={["ID", "Name", "CPF/CNPJ"]}

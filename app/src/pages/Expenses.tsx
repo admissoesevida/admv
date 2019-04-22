@@ -27,7 +27,7 @@ export default class Expenses extends React.Component {
   public render(): React.ReactNode {
     return (
       <div className="page-expenses">
-        <Title text="Expenses" />
+        <Title text="Saídas" />
         <TableView
           list={this.state.list}
           headers={["ID", "Data", "ID de Tipo", "Fornecedor", "Valor"]}

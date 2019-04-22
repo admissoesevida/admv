@@ -24,7 +24,7 @@ export default class Members extends React.Component {
   public render(): React.ReactNode {
     return (
       <div className="page-members">
-        <Title text="Members" />
+        <Title text="Membros" />
         <TableView
           list={this.state.list}
           headers={["ID", "Name", "CPF"]}

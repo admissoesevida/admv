@@ -24,7 +24,7 @@ export default class ExpenseTypes extends React.Component {
   public render(): React.ReactNode {
     return (
       <div className="page-expense-types">
-        <Title text="Expense Types" />
+        <Title text="Tipos de Saídas" />
         <TableView
           list={this.state.list}
           headers={["ID", "Nome", "Nota"]}
