@@ -1,16 +1,13 @@
 // Chai docs - https://www.chaijs.com/api/bdd/
 
-import { after, describe, it } from 'mocha';
+import { after, before, describe, it } from 'mocha';
 import { expect } from 'chai';
 import DatabaseHelper from './helpers/database-helper';
 import ExpenseUtilsHelper from './helpers/expense-utils-helper';
-import api from '../src/server';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 
 chai.use(chaiHttp);
-
-const { request } = chai;
 
 const expenseHelper = new DatabaseHelper('expenses');
 const expenseTypeHelper = new DatabaseHelper('expense-types');
@@ -26,10 +23,8 @@ const ProviderTest = {
   name: 'Caso de teste',
   cpf_cnpj: '46542212723',
   email: 'teste@teste.com',
-  phone: '14992345621'
+  phone: '+5514999999999'
 };
-
-let newProvider = {};
 
 const alterProvider = {
   name: 'Teste de update'
@@ -37,36 +32,41 @@ const alterProvider = {
 
 describe('controllers/Providers', () => {
   describe('POST /providers', () => {
-    it('Deve retornar o fornecedor registrado', done => {
-      request(api)
-        .post(`/providers`)
-        .send(ProviderTest)
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          expect(res.body).to.be.an('object');
+    it('Deve retornar o fornecedor registrado', async () => {
+      const res = await providerHelper.maybeCreate(ProviderTest);
 
-          newProvider = {
-            ...res.body,
-            ...ProviderTest
-          };
+      expect(res).to.have.status(200);
+      expect(res.body).to.be.an('object');
+      expect(res.body).to.have.property('name', ProviderTest.name);
+      expect(res.body).to.have.property('cpf_cnpj', ProviderTest.cpf_cnpj);
+      expect(res.body).to.have.property('email', ProviderTest.email);
+      expect(res.body).to.have.property('phone', ProviderTest.phone);
+    });
 
-          expect(res.body).to.eql(newProvider);
-          done();
-        });
+    after(async () => {
+      await providerHelper.maybeDeleteAll();
     });
   });
 
-  describe('PUT /providers/:id', () => {
-    it('Deve retornar 1 para o update realizado', done => {
-      request(api)
-        .put(`/providers/${newProvider.id}`)
-        .send(alterProvider)
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          expect(res.body).to.be.an('array');
-          expect(res.body).to.eql([1]);
-          done();
-        });
+  describe('PUT /providers/:id', async () => {
+    before(async () => {
+      await providerHelper.maybeCreate(ProviderTest);
+    });
+    it('Deve retornar o item atualizado', async () => {
+      await providerHelper.maybeUpdate(alterProvider);
+
+      const res = await providerHelper.maybeGetItem();
+
+      expect(res).to.have.status(200);
+      expect(res.body).to.be.an('object');
+      expect(res.body).to.have.property('name', alterProvider.name);
+      expect(res.body).to.have.property('cpf_cnpj', ProviderTest.cpf_cnpj);
+      expect(res.body).to.have.property('email', ProviderTest.email);
+      expect(res.body).to.have.property('phone', ProviderTest.phone);
+    });
+
+    after(async () => {
+      await providerHelper.maybeDeleteAll();
     });
   });
 
@@ -104,50 +104,56 @@ describe('controllers/Providers', () => {
   });
 
   describe('GET /providers', () => {
-    it('Deve retornar os fornecedores registrados', done => {
-      request(api)
-        .get(`/providers`)
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          expect(res.body).to.be.an('array');
-          done();
-        });
+    before(async () => {
+      await providerHelper.maybeCreate(ProviderTest);
+      await providerHelper.maybeCreate(ProviderTest);
+      await providerHelper.maybeCreate(ProviderTest);
+    });
+    it('Deve retornar os fornecedores registrados', async () => {
+      const res = await providerHelper.maybeGetAll();
+
+      expect(res).to.have.status(200);
+      expect(res.body)
+        .to.be.an('array')
+        .that.has.length.greaterThan(2);
+    });
+
+    after(async () => {
+      await providerHelper.maybeDeleteAll();
     });
   });
 
   describe('GET /providers/:id', () => {
-    it('Deve retornar apenas o fornecedor do id que foi criado', done => {
-      request(api)
-        .get(`/providers/${newProvider.id}`)
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          expect(res.body).to.be.an('object');
+    it('Deve retornar um item específico', async () => {
+      await providerHelper.maybeCreate(ProviderTest);
+      await providerHelper.maybeCreate(ProviderTest);
+      const { body: newItem } = await providerHelper.maybeCreate(ProviderTest);
 
-          const newBody = res.body;
-          delete newBody.createdAt;
-          delete newBody.updatedAt;
+      const res = await providerHelper.maybeGetItem(newItem.id);
 
-          const equalProvider = newProvider;
-          delete equalProvider.createdAt;
-          delete equalProvider.updatedAt;
-          expect(newBody).to.eql({
-            ...equalProvider,
-            ...alterProvider
-          });
-          done();
-        });
+      expect(res).to.have.status(200);
+      expect(res.body).to.be.an('object');
+      expect(res.body).to.have.property('name', ProviderTest.name);
+      expect(res.body).to.have.property('cpf_cnpj', ProviderTest.cpf_cnpj);
+      expect(res.body).to.have.property('email', ProviderTest.email);
+      expect(res.body).to.have.property('phone', ProviderTest.phone);
+    });
+
+    after(async () => {
+      await providerHelper.maybeDeleteAll();
     });
   });
 
   describe('DELETE /providers/:id', () => {
-    it('Deve retornar 1 para quando o registro é deletado', done => {
-      request(api)
-        .delete(`/providers/${newProvider.id}`)
-        .end((err, res) => {
-          expect(res).to.have.status(200);
-          expect(res.body).to.equal(1);
-          done();
-        });
+    it('Deve deletar um item específico', async () => {
+      const { body: newItem } = await providerHelper.maybeCreate(ProviderTest);
+
+      await providerHelper.maybeDeleteItem(newItem.id);
+
+      const res = await providerHelper.maybeGetItem(newItem.id);
+
+      expect(res).to.have.status(200);
+      expect(res.body).to.be.null;
     });
   });
 });

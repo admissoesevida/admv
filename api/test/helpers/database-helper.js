@@ -4,7 +4,7 @@ import api from '../../src/server';
 export default class DatabaseHelper {
   constructor(route) {
     this.lastCreatedId = [];
-    this.route = route;
+    this.route = `api/${route}`;
   }
 
   getLastCreatedId() {
