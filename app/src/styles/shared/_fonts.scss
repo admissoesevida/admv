@@ -1,5 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400,500,600,700');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
 
 * {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.font-sans {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.font-cursive {
   font-family: 'Comfortaa', cursive;
 }
