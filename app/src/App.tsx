@@ -10,6 +10,8 @@ import Members from "./pages/Members";
 import Providers from "./pages/Providers";
 import Incomes from "./pages/Incomes";
 import Expenses from "./pages/Expenses";
+import IncomeTypes from "./pages/IncomeTypes";
+import ExpenseTypes from "./pages/ExpenseTypes";
 
 export default class App extends React.Component {
   public static displayName: string = "App";
@@ -17,10 +19,12 @@ export default class App extends React.Component {
   public render(): React.ReactNode {
     const menuList: Menu[] = [
       { name: "Overview", path: "/" },
-      { name: "Members", path: "/members" },
-      { name: "Providers", path: "/providers" },
-      { name: "Incomes", path: "/incomes" },
-      { name: "Expenses", path: "/expenses" }
+      { name: "Membros", path: "/members" },
+      { name: "Fornecedores", path: "/providers" },
+      { name: "Entradas", path: "/incomes" },
+      { name: "Saídas", path: "/expenses" },
+      { name: "Tipos de Entradas", path: "/income-types" },
+      { name: "Tipos de Saídas", path: "/expense-types" }
     ];
 
     return (
@@ -32,6 +36,8 @@ export default class App extends React.Component {
             <Route exact path="/providers" component={Providers} />
             <Route exact path="/incomes" component={Incomes} />
             <Route exact path="/expenses" component={Expenses} />
+            <Route exact path="/income-types" component={IncomeTypes} />
+            <Route exact path="/expense-types" component={ExpenseTypes} />
           </div>
         </SidebarLayout>
       </Router>

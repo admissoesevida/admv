@@ -24,9 +24,6 @@ module.exports = (sequelize, DataTypes) => {
 
   Income.associate = models => {
     Income.belongsTo(models.member);
-  };
-
-  Income.associate = models => {
     Income.belongsTo(models.incomeType);
   };
 

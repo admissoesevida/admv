@@ -1,6 +1,7 @@
 import * as React from "react";
 import "./TableView.scss";
 import Loader from "./Loader";
+import getValue from "../util/getValue";
 
 export default function TableView({
   list,
@@ -40,7 +41,7 @@ export default function TableView({
                   : "type-number";
                 return (
                   <td key={field} className={className}>
-                    {item[field]}
+                    {getValue(item, field)}
                   </td>
                 );
               }
