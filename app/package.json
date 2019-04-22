@@ -24,7 +24,8 @@
       "src/**/*.{js,jsx,ts,tsx}",
       "!<rootDir>/node_modules/",
       "!<rootDir>/src/index.tsx",
-      "!<rootDir>/src/serviceWorker.ts"
+      "!<rootDir>/src/serviceWorker.ts",
+      "!<rootDir>/src/setupProxy.js"
     ],
     "coverageThreshold": {
       "global": {
