@@ -3,14 +3,21 @@ import "./TableView.scss";
 import Loader from "./Loader";
 import getValue from "../util/getValue";
 
+export interface Config {
+  label: string;
+  processor?: Function;
+}
+
+export interface TableViewConfig {
+  [field: string]: Config;
+}
+
 export default function TableView({
   list,
-  fields,
-  headers
+  fields
 }: {
   list: any[];
-  fields: string[];
-  headers: string[];
+  fields: TableViewConfig;
 }): React.ReactElement {
   if (list.length === 0) {
     return (
@@ -20,13 +27,16 @@ export default function TableView({
     );
   }
 
+  const fieldList = Object.keys(fields);
+
   return (
     <table className="table-view-component" cellSpacing="0">
       <thead>
         <tr>
-          {headers.map(
-            (header: string): React.ReactElement => {
-              return <td key={header}>{header}</td>;
+          {fieldList.map(
+            (key: string): React.ReactElement => {
+              const { label } = fields[key];
+              return <td key={key}>{label}</td>;
             }
           )}
         </tr>
@@ -34,14 +44,15 @@ export default function TableView({
       <tbody>
         {list.map(
           (item): React.ReactElement => {
-            const rows = fields.map(
-              (field: string): React.ReactElement => {
-                const className = isNaN(item[field])
+            const rows = fieldList.map(
+              (key: string): React.ReactElement => {
+                const className = isNaN(item[key])
                   ? "type-text"
                   : "type-number";
+
                 return (
-                  <td key={field} className={className}>
-                    {getValue(item, field)}
+                  <td key={key} className={className}>
+                    {getValue(item, key, fields[key].processor)}
                   </td>
                 );
               }

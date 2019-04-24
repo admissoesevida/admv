@@ -1,6 +1,7 @@
 import * as React from "react";
-import TableView from "../components/TableView";
+import TableView, { TableViewConfig } from "../components/TableView";
 import Title from "../components/Title";
+import fetchData from "../util/fetchData";
 
 export interface Member {
   id: number;
@@ -15,21 +16,28 @@ export default class Members extends React.Component {
     list: []
   };
 
-  public componentDidMount(): void {
-    fetch("/api/members")
-      .then((res): Promise<Member[]> => res.json())
-      .then((list): void => this.setState({ list }));
+  public async componentDidMount(): Promise<void> {
+    const list = await fetchData("/api/members");
+    this.setState({ list });
   }
 
   public render(): React.ReactNode {
+    const fields: TableViewConfig = {
+      id: {
+        label: "ID"
+      },
+      name: {
+        label: "Nome"
+      },
+      cpf: {
+        label: "CPF"
+      }
+    };
+
     return (
       <div className="page-members">
         <Title text="Membros" />
-        <TableView
-          list={this.state.list}
-          headers={["ID", "Name", "CPF"]}
-          fields={["id", "name", "cpf"]}
-        />
+        <TableView list={this.state.list} fields={fields} />
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import * as React from "react";
 import Title from "../components/Title";
-import TableView from "../components/TableView";
+import TableView, { TableViewConfig } from "../components/TableView";
+import fetchData from "../util/fetchData";
 
 export interface ExpenseType {
   id: number;
@@ -15,21 +16,28 @@ export default class ExpenseTypes extends React.Component {
     list: []
   };
 
-  public componentDidMount(): void {
-    fetch("/api/expense-types")
-      .then((res): Promise<ExpenseType[]> => res.json())
-      .then((list): void => this.setState({ list }));
+  public async componentDidMount(): Promise<void> {
+    const list = await fetchData("/api/expense-types");
+    this.setState({ list });
   }
 
   public render(): React.ReactNode {
+    const fields: TableViewConfig = {
+      id: {
+        label: "ID"
+      },
+      name: {
+        label: "Nome"
+      },
+      note: {
+        label: "Nota"
+      }
+    };
+
     return (
       <div className="page-expense-types">
         <Title text="Tipos de Saídas" />
-        <TableView
-          list={this.state.list}
-          headers={["ID", "Nome", "Nota"]}
-          fields={["id", "name", "note"]}
-        />
+        <TableView list={this.state.list} fields={fields} />
       </div>
     );
   }
