@@ -7,3 +7,14 @@ it("renders without crashing", (): void => {
   ReactDOM.render(<Expenses />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
+
+it("it calls componentDidMount", (): void => {
+  const div = document.createElement("div");
+  const spy = jest.spyOn(Expenses.prototype, "componentDidMount");
+
+  ReactDOM.render(<Expenses />, div);
+
+  expect(spy).toHaveBeenCalled();
+
+  ReactDOM.unmountComponentAtNode(div);
+});

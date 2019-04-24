@@ -1,7 +1,9 @@
 import * as React from "react";
 import Title from "../components/Title";
-import TableView from "../components/TableView";
+import TableView, { TableViewConfig } from "../components/TableView";
 import { Member } from "./Members";
+import { toLocaleDate, toCurrency } from "../util/processors";
+import fetchData from "../util/fetchData";
 
 export interface Income {
   id: number;
@@ -20,21 +22,36 @@ export default class Incomes extends React.Component {
     list: []
   };
 
-  public componentDidMount(): void {
-    fetch("/api/incomes")
-      .then((res): Promise<Income[]> => res.json())
-      .then((list): void => this.setState({ list }));
+  public async componentDidMount(): Promise<void> {
+    const list = await fetchData("/api/incomes");
+    this.setState({ list });
   }
 
   public render(): React.ReactNode {
+    const fields: TableViewConfig = {
+      id: {
+        label: "ID"
+      },
+      "member.name": {
+        label: "Membro"
+      },
+      "incomeType.name": {
+        label: "Tipo"
+      },
+      date: {
+        label: "Data",
+        processor: toLocaleDate
+      },
+      value: {
+        label: "Valor",
+        processor: toCurrency
+      }
+    };
+
     return (
       <div className="page-incomes">
         <Title text="Entradas" />
-        <TableView
-          list={this.state.list}
-          headers={["ID", "Data", "ID de Tipo", "Membro", "Valor"]}
-          fields={["id", "date", "incomeTypeId", "member.name", "value"]}
-        />
+        <TableView list={this.state.list} fields={fields} />
       </div>
     );
   }

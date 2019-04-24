@@ -2,10 +2,10 @@
 
 .table-view-component {
   border-collapse: collapse;
+  width: 100%;
 
   td {
     padding: 8px 12px;
-    border: 1px solid rgba($secondary, 0.2);
 
     &.type-text {
       text-align: left;
@@ -16,12 +16,24 @@
     }
   }
 
-  thead {
+  tr + tr {
+    border-top: 1px solid rgba($secondary, 0.15);
+  }
+
+  > thead {
     background-color: $primary;
     color: $white;
   }
 
-  tbody {
+  > tbody {
     background-color: rgba($light-bg, .1);
+
+    > tr {
+      transition: background-color 300ms ease-in-out;
+
+      &:hover {
+        background-color: rgba($light-bg, .2);
+      }
+    }
   }
 }
