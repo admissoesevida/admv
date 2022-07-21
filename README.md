@@ -1,3 +1,9 @@
+# ⚠️ Projeto Descontinuado
+
+> Pedimos desculpas, mas este projeto foi descontinuado e está aqui apenas para fins históricos e referências.
+
+---
+
 # ADMV
 [![Build Status](https://travis-ci.com/admissoesevida/admv.svg?branch=master)](https://travis-ci.com/admissoesevida/admv)
 [![codecov](https://codecov.io/gh/admissoesevida/admv/branch/master/graph/badge.svg)](https://codecov.io/gh/admissoesevida/admv)
